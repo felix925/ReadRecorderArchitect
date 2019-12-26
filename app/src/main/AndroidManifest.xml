@@ -9,10 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BookListView"></activity>
         <activity android:name=".BookDataView.BookDataView" />
         <activity
-            android:name=".BookListView.BookListViewController"
+            android:name=".BookListView.BookListViewActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

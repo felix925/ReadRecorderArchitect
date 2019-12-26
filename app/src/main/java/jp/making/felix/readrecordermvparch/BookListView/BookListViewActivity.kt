@@ -1,27 +1,24 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.R
-
 import kotlinx.android.synthetic.main.activity_main.*
 
-class BookListViewController : AppCompatActivity() {
-    private lateinit var presenter: BookListViewPresenter
-
+class BookListViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
         Realm.init(this)
-        presenter = BookListViewPresenter()
-        addButton.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        val fragment = BookListViewFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.BookListContainer,fragment)
+        transaction.commit()
+        fab.setOnClickListener {
+            fragment.FabAction()
         }
     }
 

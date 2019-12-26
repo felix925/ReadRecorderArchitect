@@ -12,7 +12,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "jp.making.felix.readrecordermvparch"
         minSdkVersion 23
@@ -48,4 +48,5 @@ dependencies {
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.navigation:navigation-fragment-ktx:2.1.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 }

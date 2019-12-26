@@ -1,0 +1,4 @@
+BookListViewFragment  -> フローティングボタン、メニュー等本のリストビュー以外の責務を負う
+BookListFragment      -> 本のリスト表示を行う責務を負う
+BookListViewActivity  -> フラグメントを管理する責務をおう
+BookListViewPresenter -> FragmentとDBの間を担う Daoをインスタンス化しているがBaseDao型にしてインターフェースを通してのみDBの操作を行う
