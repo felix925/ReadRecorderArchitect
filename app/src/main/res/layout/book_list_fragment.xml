@@ -6,16 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".BookListView.BookListViewFragment">
+    tools:context=".BookListView.ListViewFragment">
 
-
-    <ListView
-    android:id="@+id/BookList"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_anchorGravity="center">
-
-</ListView>
+    <GridView
+        android:id="@+id/BookList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EAFFEA"
+        android:gravity="center"
+        android:horizontalSpacing="5sp"
+        android:verticalSpacing="5sp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth" />
 
 
 
@@ -26,5 +28,12 @@
         android:layout_height="100dp"
         android:layout_gravity="center_vertical|center_horizontal"
         app:layout_anchorGravity="center" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_gravity="end"
+        android:orientation="vertical" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

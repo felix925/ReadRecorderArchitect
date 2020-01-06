@@ -3,7 +3,7 @@ package jp.making.felix.readrecordermvparch.BookListView
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.Dao.BaseDao
 
-class BookListViewPresenter(val DataBase:BaseDao,val mView: BookListContract.View):BookListContract.Presenter{
+class ListViewPresenter(val DataBase:BaseDao, val mView: ListViewContract.View):ListViewContract.Presenter{
     init{
         mView.presenter = this
     }

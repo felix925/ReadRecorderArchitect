@@ -5,20 +5,23 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
+import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class BookListViewActivity : AppCompatActivity() {
+class ListViewActivity : AppCompatActivity() {
+    lateinit var nowFragment:BaseFragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Realm.init(this)
-        val fragment = BookListViewFragment()
+        val fragment = ListViewFragment()
+        nowFragment = fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.BookListContainer,fragment)
         transaction.commit()
         fab.setOnClickListener {
-            fragment.FabAction()
+            nowFragment.FabAction()
         }
     }
 

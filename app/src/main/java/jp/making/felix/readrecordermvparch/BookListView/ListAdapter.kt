@@ -11,7 +11,7 @@ import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
 import kotlinx.android.synthetic.main.book_item.view.*
 
-class BookListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
+class ListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
 
     val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -31,7 +31,7 @@ class BookListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = layoutInflater.inflate(R.layout.book_item, parent, false)
         if(users[position].imageUrl.isNotEmpty()) {
-            Picasso.get().load(users[position].imageUrl).into(view.thumbnail)
+            //Picasso.get().load(users[position].imageUrl).into(view.thumbnail)
         }
         view.name.text = users[position].name
         view.comment.text = users[position].lastLog

@@ -4,7 +4,7 @@ import jp.making.felix.readrecordermvparch.Base.BasePresenter
 import jp.making.felix.readrecordermvparch.Base.BaseView
 import jp.making.felix.readrecordermvparch.data.Book
 
-interface BookListContract {
+interface ListViewContract {
     interface View:BaseView<Presenter>{
         fun showProgress()
         fun deleteProgress()

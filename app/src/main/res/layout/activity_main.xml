@@ -5,20 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/BookListContainer"
-    tools:context=".BookListView.BookListViewActivity">
+    tools:context=".BookListView.ListViewActivity">
 
     <include
         android:id="@+id/include"
         layout="@layout/content_main" />
 
+    <RelativeLayout
+        android:id="@+id/BookListContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_anchor="@id/bar"/>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="60sp"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/cardview_dark_background"
+        app:fabCradleRoundedCornerRadius="36dp"
         app:hideOnScroll="true"
         app:navigationIcon="@drawable/filter_24dp"
         />
