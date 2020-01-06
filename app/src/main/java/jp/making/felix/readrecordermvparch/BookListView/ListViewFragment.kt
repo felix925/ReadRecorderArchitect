@@ -67,7 +67,5 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     }
 
     override fun FabAction() {
-        Log.i("FAB_NOW","")
-        presenter.registData("name","")
     }
 }
