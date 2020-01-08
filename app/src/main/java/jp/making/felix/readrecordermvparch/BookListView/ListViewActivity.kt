@@ -20,9 +20,6 @@ class ListViewActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.BookListContainer,fragment)
         transaction.commit()
-        fab.setOnClickListener {
-            nowFragment.FabAction()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

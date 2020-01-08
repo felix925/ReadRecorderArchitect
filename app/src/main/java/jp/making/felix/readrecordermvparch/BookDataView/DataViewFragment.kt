@@ -16,7 +16,7 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.book_data_view,container,false)
+        val view = inflater.inflate(R.layout.book_data_fragment,container,false)
         DataViewPresenter(BookDao(),this)
         return view
     }

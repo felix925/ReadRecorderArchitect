@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
@@ -21,6 +22,9 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
         ListViewPresenter(BookDao(),this)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
+                FabAction()
+        }
         return view
     }
 
@@ -67,5 +71,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     }
 
     override fun FabAction() {
+        Log.d("Fab","Press")
     }
 }

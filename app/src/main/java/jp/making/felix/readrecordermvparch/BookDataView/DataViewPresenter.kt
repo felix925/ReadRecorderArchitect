@@ -12,7 +12,6 @@ class DataViewPresenter(val DataBase: BaseDao,
         mView.showProgress()
         mView.deleteProgress()
     }
-
     fun getData(count: String): Book {
         return DataBase.searchData(count)
     }
