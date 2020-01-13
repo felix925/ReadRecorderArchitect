@@ -1,9 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Dao.BaseDao
+import jp.making.felix.readrecordermvparch.data.Dao.BaseModel
 
-class ListViewPresenter(val DataBase:BaseDao,
+class ListViewPresenter(val DataBase:BaseModel,
                         val mView: ListViewContract.View):ListViewContract.Presenter{
     init{
         mView.presenter = this
@@ -12,10 +12,6 @@ class ListViewPresenter(val DataBase:BaseDao,
         mView.showProgress()
         mView.showAllBooks(getAllData())
         mView.deleteProgress()
-    }
-
-    fun getData(count: String):Book{
-        return DataBase.searchData(count)
     }
 
     fun getAllData():List<Book>{

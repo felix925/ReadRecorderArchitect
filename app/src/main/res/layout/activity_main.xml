@@ -5,33 +5,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookListView.ListViewActivity">
+    tools:context=".BookListView.ListViewActivity"
+    >
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_main" />
+        layout="@layout/content_main"/>
 
-    <RelativeLayout
-        android:id="@+id/BookListContainer"
+    <!--<com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_anchor="@id/bar"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout> -->
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/home_navigation"
+        app:defaultNavHost="true"
+        />
+
+    <ProgressBar
+        android:id="@+id/mainProgress"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        app:layout_anchorGravity="center" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:layout_gravity="bottom"
-        app:backgroundTint="@color/cardview_dark_background"
+        app:backgroundTint="#424242"
         app:fabCradleRoundedCornerRadius="36dp"
         app:hideOnScroll="true"
-        app:navigationIcon="@drawable/filter_24dp"
+        app:navigationIcon="@drawable/filter"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/bar"/>
+        app:layout_anchor="@id/bar"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

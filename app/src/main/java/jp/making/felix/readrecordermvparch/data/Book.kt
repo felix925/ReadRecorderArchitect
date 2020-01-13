@@ -18,5 +18,7 @@ open class Book(
     var name: String = "",
     var imageUrl: String = "",
     var lastLog: String = "",
-    var pages: RealmList<Page> = RealmList(Page(0))
+    var pages: RealmList<Page> = RealmList(Page(0)),
+    var alreadyRead: Boolean = false,
+    var tag:RealmList<Tag> = RealmList(Tag("ALL"))
 ):RealmObject(),Serializable

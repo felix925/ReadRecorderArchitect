@@ -11,22 +11,12 @@
         android:id="@+id/BookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAFFEA"
+        android:background="@color/colorBackground"
         android:gravity="center"
         android:horizontalSpacing="5sp"
         android:verticalSpacing="5sp"
         android:numColumns="2"
         android:stretchMode="columnWidth" />
-
-
-
-    <ProgressBar
-        android:id="@+id/mainProgress"
-        style="@android:style/Widget.ProgressBar.Large"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_vertical|center_horizontal"
-        app:layout_anchorGravity="center" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

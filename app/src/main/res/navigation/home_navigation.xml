@@ -2,16 +2,41 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_navigation"
-    app:startDestination="@id/bookListViewFragment"
-    tools:ignore="UnusedNavigation">
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/listViewFragment"
+    >
+
     <fragment
-        android:id="@+id/bookListViewFragment"
+        android:id="@+id/listViewFragment"
         android:name="jp.making.felix.readrecordermvparch.BookListView.ListViewFragment"
-        android:label="book_list_fragment"
-        tools:layout="@layout/book_list_fragment" />
+        android:label="book_list_to_data"
+        tools:layout="@layout/book_list_fragment" >
+        <action
+            android:id="@+id/action_list_to_data"
+            app:destination="@id/dataViewFragment" />
+        <action
+            android:id="@+id/action_list_to_regist"
+            app:destination="@id/dataRegistFragment" />
+    </fragment>
+
     <fragment
-        android:id="@+id/bookDataViewFragment2"
+        android:id="@+id/dataViewFragment"
         android:name="jp.making.felix.readrecordermvparch.BookDataView.DataViewFragment"
-        android:label="BookDataViewFragment" />
+        android:label="book_data_fragment"
+        tools:layout="@layout/book_data_fragment" >
+        <action
+            android:id="@+id/action_data_to_list"
+            app:destination="@id/listViewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/dataRegistFragment"
+        android:name="jp.making.felix.readrecordermvparch.BookDataRegist.DataRegistFragment"
+        android:label="book_regist_fragment"
+        tools:layout="@layout/book_regist_fragment">
+        <action
+            android:id="@+id/action_regist_to_list"
+            app:destination="@id/listViewFragment" />
+    </fragment>
+
 </navigation>

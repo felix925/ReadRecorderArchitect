@@ -5,42 +5,52 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Dao.BookDao
+import jp.making.felix.readrecordermvparch.data.Dao.BookModel
 import kotlinx.android.synthetic.main.book_list_fragment.*
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override lateinit var presenter:ListViewContract.Presenter
+    lateinit var fab:FloatingActionButton
+
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
-        ListViewPresenter(BookDao(),this)
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
-                FabAction()
+        ListViewPresenter(BookModel(),this)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
+            fab = it
+        }
+        fab.setOnClickListener {
+            FabAction()
         }
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpButtonIcon()
         presenter.start()
     }
-
+    /**
+     * 待機するときのぐるぐる回るやつ（プログレスバー）を表示する
+     * */
     override fun showProgress() {
-        view?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
+        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
             it.visibility = ProgressBar.VISIBLE
         }
     }
-
+    /**
+     *　待機するときのぐるぐる回るやつ（プログレスバー）を非表示にする
+     * */
     override fun deleteProgress() {
-        view?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
+        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
             it.visibility = ProgressBar.INVISIBLE
         }
     }
@@ -48,7 +58,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * リスト上のアイテムがタップされると呼びだされる
      * ここからidを取得してintentに保存してFragment移動をViewでさせる
      * */
-    override fun showBooks(count:Int) {
+    override fun pressBooks(count:Int) {
         Log.i("BOOK_ID",count.toString())
     }
     /**
@@ -59,18 +69,20 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         context?.apply {
             BookList.adapter = ListAdapter(this,books)
             BookList.setOnItemClickListener{_, _, _, id ->
-                showBooks(id.toInt())
+                pressBooks(id.toInt())
             }
         }
     }
-
-    fun setUpButtonIcon(){
-        view?.findViewById<Button>(R.id.fab)?.let{
-
-        }
+    /**
+     * FAB（フロートアクションボタン）のアイコンの画像を設定する
+     * */
+    override fun setUpButtonIcon(){
+        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
     }
-
+    /**
+     * FABを押された際の画面遷移を行う
+     * */
     override fun FabAction() {
-        Log.d("Fab","Press")
+        findNavController().navigate(R.id.action_list_to_regist)
     }
 }
