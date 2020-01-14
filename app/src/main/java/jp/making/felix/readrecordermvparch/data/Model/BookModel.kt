@@ -1,14 +1,17 @@
-package jp.making.felix.readrecordermvparch.data.Dao
+package jp.making.felix.readrecordermvparch.data.Model
 
 import android.content.res.Resources
 import android.util.Log
+import com.squareup.moshi.Moshi
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
 import jp.making.felix.readrecordermvparch.data.Page
 import okhttp3.*
 import java.io.IOException
 import java.util.*
 import java.text.SimpleDateFormat
+import kotlin.math.max
 
 class BookModel: BaseModel {
     private val myRealm:Realm
@@ -46,8 +49,31 @@ class BookModel: BaseModel {
         }
     }
 
-    override fun registData(isbn:String) {
+    override fun registData(isbn: String,type:Int):Boolean{
+        var result = mutableListOf<String>()
+        when(type){
+            1 -> result = getBookForGoogle(isbn).toMutableList()
+//            2 -> result = getBookForAmazon(isbn)
+        }
+        //データ取得失敗
+        if (result[0] != "") {
+            registToDatabase(result[0], result[1], result[2])
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    private fun registToDatabase(name: String,imageUrl:String,maxPage:String){
         myRealm.executeTransaction {
+            val bookData = it.createObject(Book::class.java,UUID.randomUUID().toString())
+            bookData.apply {
+                this.name = name
+                this.imageUrl = imageUrl
+                this.maxPage = maxPage
+                this.lastLog = getDate()
+            }
+            it.copyToRealm(bookData)
         }
     }
 
@@ -57,14 +83,16 @@ class BookModel: BaseModel {
         return dataFormat.format(date)
     }
 
-    private fun getBookForAmazon(isbn: String){
+//    private fun getBookForAmazon(isbn: String):List<String>{
+//
+//    }
 
-    }
-
-    private fun getBookForGoogle(isbn: String) {
+    private fun getBookForGoogle(isbn: String):List<String>{
         val client = OkHttpClient()
-        val url = "https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
+        val url = "https://www.googleapis.com/books/v1/volumes?q=isbn:{$isbn}"
         val req = Request.Builder().url(url).build()
+        val result = mutableListOf<String>()
+
         client.newCall(req).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.i("BOOKDATA",e.toString())
@@ -72,13 +100,15 @@ class BookModel: BaseModel {
             override fun onResponse(call: Call, response: Response) {
                 //呼び出しに成功した場合中身があることは確実なのでエルビス演算子を用いる。
                 val body = response.body()!!.string()
-                //TODO JSONにパースしていい感じに綺麗な処理にする
-                val title = body.split("content\": \"")[1].split("\"")[0]
-                //本の画像のURLが存在したらそれを登録する。　存在しない場合IndexOutOfBoundsが現在だと発生するのでその場合はから文字列で登録する
-                //TODO 本が存在しない場合の画像を用意する
-                // JSON処理実装後この処理も綺麗にする
-
+                val adapter = Moshi.Builder().build().adapter(GoogleBook::class.java)
+                val books = adapter.fromJson(body)
+                books?.let{
+                    result.add(it.items[0].volumeInfo.title)
+                    result.add(it.items[0].volumeInfo.pageCount.toString())
+                    result.add(it.items[0].volumeInfo.imageLinks.thumbnail)
+                }
             }
         })
+        return result
     }
 }

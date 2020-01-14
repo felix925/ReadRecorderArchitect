@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Dao.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.BookModel
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     override lateinit var presenter: DataViewContract.Presenter

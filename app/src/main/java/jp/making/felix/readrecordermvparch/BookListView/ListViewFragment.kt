@@ -13,7 +13,7 @@ import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Dao.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.BookModel
 import kotlinx.android.synthetic.main.book_list_fragment.*
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{

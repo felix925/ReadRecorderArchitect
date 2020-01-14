@@ -1,7 +1,7 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Dao.BaseModel
+import jp.making.felix.readrecordermvparch.data.Model.BaseModel
 
 class DataViewPresenter(val DataBase: BaseModel,
                         val mView: DataViewContract.View):DataViewContract.Presenter{

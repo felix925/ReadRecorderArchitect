@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Dao.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.BookModel
 
 class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     override lateinit var presenter: DataRegistContract.Presenter

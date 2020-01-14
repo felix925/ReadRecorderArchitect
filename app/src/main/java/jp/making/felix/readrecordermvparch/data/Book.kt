@@ -19,6 +19,7 @@ open class Book(
     var imageUrl: String = "",
     var lastLog: String = "",
     var pages: RealmList<Page> = RealmList(Page(0)),
+    var maxPage:String = "",
     var alreadyRead: Boolean = false,
     var tag:RealmList<Tag> = RealmList(Tag("ALL"))
 ):RealmObject(),Serializable
