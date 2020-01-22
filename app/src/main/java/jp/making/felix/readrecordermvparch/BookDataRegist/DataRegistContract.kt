@@ -8,6 +8,7 @@ interface DataRegistContract {
         fun showProgress()
         fun deleteProgress()
         fun showToast(text:String)
+        fun showEditError(text:String)
     }
     interface Presenter: BasePresenter{
         fun registData(isbn:String):Boolean

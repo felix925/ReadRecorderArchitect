@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     override lateinit var presenter: DataViewContract.Presenter
@@ -17,7 +18,10 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
-        DataViewPresenter(BookModel(),this)
+        DataViewPresenter(LocalBookModel(),this)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener{
+            FabAction()
+        }
         return view
     }
 

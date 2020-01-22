@@ -1,13 +1,13 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
-import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class ListViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +15,7 @@ class ListViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
+        Log.i("Realm pass",Realm.getDefaultConfiguration()!!.path.toString())
         val fragment = ListViewFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.nav_host_fragment,fragment)

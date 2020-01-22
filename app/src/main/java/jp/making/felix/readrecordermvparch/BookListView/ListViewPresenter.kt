@@ -10,12 +10,12 @@ class ListViewPresenter(val DataBase:BaseModel,
     }
     override fun start(){
         mView.showProgress()
-        mView.showAllBooks(getAllData())
+        //mView.showAllBooks(getAllData())
         mView.deleteProgress()
     }
 
-    fun getAllData():List<Book>{
+    /*fun getAllData():List<Book>{
         return DataBase.getAllData().toList()
-    }
+    }*/
 
 }

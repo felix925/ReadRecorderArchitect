@@ -7,16 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookDataRegist.DataRegistFragment">
+    <!-- 以下のTextViewのtextは後々カメラを導入した際に消す可能性があるためStringファイルに値としてもたせていない-->
     <TextView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:text="SUCEED"
+        android:id="@+id/isbnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:text="本のISBN番号を入力してください"
         />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="399dp"
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button" />
-
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_anchor="@id/isbnEdit" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

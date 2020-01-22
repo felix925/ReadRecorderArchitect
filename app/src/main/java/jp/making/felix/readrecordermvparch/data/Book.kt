@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.data
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import io.realm.RealmList
@@ -21,5 +22,6 @@ open class Book(
     var pages: RealmList<Page> = RealmList(Page(0)),
     var maxPage:String = "",
     var alreadyRead: Boolean = false,
-    var tag:RealmList<Tag> = RealmList(Tag("ALL"))
+    var tag:RealmList<Tag> = RealmList(Tag("ALL")),
+    var readLog: RealmList<Logs> = RealmList(Logs(""))
 ):RealmObject(),Serializable

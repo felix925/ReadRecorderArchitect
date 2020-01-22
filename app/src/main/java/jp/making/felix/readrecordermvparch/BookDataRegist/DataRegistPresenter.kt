@@ -20,24 +20,25 @@ class DataRegistPresenter(val DataBase: BaseModel,
     }
 
     override fun registData(isbn: String):Boolean{
-        if(validationCheck(isbn)){
-            val result = DataBase.registData(isbn,1)
-            if (!result){
-                mView.showToast(CantRegistError.message)
-                return false
-            }
-            else{
-                return true
-            }
-        }
-        else{
-            mView.showToast(ValidateError.message)
+//        if (isbn.isEmpty()){
+//            mView.showEditError("ISBNを入力してください")
+//        }
+//        if(validationCheck(isbn)) {
+//            GlobalScope.launch {
+//                launch {
+//                    DataBase.registData(isbn, 1)
+//                }
+//            }
+//            return true
+//        }
+//        else{
+//            mView.showToast(ValidateError.message)
             return false
-        }
+//        }
     }
     //入力されたISBN番号が正しいのバリデーションチェック
     private fun validationCheck(isbn: String):Boolean {
-        val regex = Regex(pattern = "[0-9]")
+        val regex = Regex(pattern = "[0-9]+")
         return regex.matches(isbn)
 //        DataBase.registData(name,imageURL)
     }

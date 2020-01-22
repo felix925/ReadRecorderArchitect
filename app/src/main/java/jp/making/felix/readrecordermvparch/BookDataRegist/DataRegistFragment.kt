@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -11,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
 
 class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     override lateinit var presenter: DataRegistContract.Presenter
@@ -21,12 +22,23 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-        DataRegistPresenter(BookModel(),this)
+        DataRegistPresenter(LocalBookModel(),this)
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener{
+            FabAction()
+        }
         return view
     }
 
     override fun FabAction() {
-        findNavController().navigate(R.id.action_regist_to_list)
+        activity?.findViewById<EditText>(R.id.editText)?.let{
+            it.error?.apply {
+                deleteEditError()
+            }
+            val validation:Boolean = presenter.registData(it.text.toString())
+            if (validation) {
+                findNavController().navigate(R.id.action_regist_to_list)
+                }
+            }
     }
 
     override fun deleteProgress() {
@@ -46,7 +58,14 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     }
 
     override fun setUpButtonIcon() {
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setImageDrawable(resources.getDrawable(R.drawable.forward))
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setImageDrawable(resources.getDrawable(R.drawable.filter))
+    }
+
+    override fun showEditError(text: String) {
+        activity?.findViewById<EditText>(R.id.editText)?.error = text
+    }
+    private fun deleteEditError(){
+        activity?.findViewById<EditText>(R.id.editText)?.error = null
     }
 }
 

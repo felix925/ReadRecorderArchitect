@@ -13,17 +13,16 @@ import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.BookModel
+import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
 import kotlinx.android.synthetic.main.book_list_fragment.*
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override lateinit var presenter:ListViewContract.Presenter
     lateinit var fab:FloatingActionButton
-
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
-        ListViewPresenter(BookModel(),this)
+        //ListViewPresenter(LocalBookModel(),this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
             fab = it
         }
