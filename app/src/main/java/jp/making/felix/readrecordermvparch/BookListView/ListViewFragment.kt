@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.internal.DaggerCollections
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
@@ -22,6 +23,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     lateinit var fab:FloatingActionButton
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
+
         //ListViewPresenter(LocalBookModel(),this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
             fab = it
@@ -81,6 +83,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     /**
      * FABを押された際の画面遷移を行う
      * */
+
     override fun FabAction() {
         findNavController().navigate(R.id.action_list_to_regist)
     }
