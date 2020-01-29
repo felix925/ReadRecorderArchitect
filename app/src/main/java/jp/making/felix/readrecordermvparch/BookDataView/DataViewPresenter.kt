@@ -1,11 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.BaseModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
 
-class DataViewPresenter(val DataBase: BaseModel,
+class DataViewPresenter(val BookRepository: BaseRepository,
                         val mView: DataViewContract.View):DataViewContract.Presenter{
     init{
         mView.presenter = this
