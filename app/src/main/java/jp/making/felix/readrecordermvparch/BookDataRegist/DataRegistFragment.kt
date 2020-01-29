@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
+import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.Model.RemoteBookModel
 
 class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     override lateinit var presenter: DataRegistContract.Presenter
@@ -22,7 +24,7 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-        DataRegistPresenter(LocalBookModel(),this)
+        DataRegistPresenter(BookRepository(LocalBookModel(),RemoteBookModel()),this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener{
             FabAction()
         }

@@ -1,10 +1,10 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
-import jp.making.felix.readrecordermvparch.data.Model.BaseModel
+import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
 
 private data class ErrorMessage(val message:String)
 
-class DataRegistPresenter(val DataBase: BaseModel,
+class DataRegistPresenter(val BookRepository: BaseRepository,
                           val mView: DataRegistContract.View): DataRegistContract.Presenter{
     private val ValidateError = ErrorMessage("正しい情報を入力してください")
     private val NotFoundError = ErrorMessage("本が見つかりませんでした")
