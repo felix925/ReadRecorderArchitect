@@ -3,6 +3,7 @@ package jp.making.felix.readrecordermvparch.data.Model
 import android.content.res.Resources
 import android.util.Log
 import com.squareup.moshi.Moshi
+import io.realm.ImportFlag
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
@@ -15,12 +16,8 @@ import java.util.*
 import java.text.SimpleDateFormat
 import javax.inject.Singleton
 
-@Singleton
 class LocalBookModel: ModelContract.LocalData {
-    private val myRealm:Realm
-    init{
-        myRealm = Realm.getDefaultInstance()
-    }
+    private val myRealm:Realm = Realm.getDefaultInstance()
 
     override suspend fun deleteData(id: String) {
         myRealm.executeTransaction(Realm.Transaction {
@@ -60,23 +57,9 @@ class LocalBookModel: ModelContract.LocalData {
 
     }
 
-    override suspend fun registData(isbn: String,type:Int):Boolean{
-        var result = mutableListOf<String>()
-        MainScope().launch {
-            when (type) {
-                1 -> result = getBookForGoogle(isbn).toMutableList()
-//              2 -> result = getBookForAmazon(isbn)
-                else -> throw UnknownError()
-            }
-        }
-        //データ取得失敗
-        if (result.isNotEmpty()) {
-            registToDatabase(result[0], result[1], result[2])
-            return true
-        }
-        else{
-            return false
-        }
+    override suspend fun registData(book: Book):Boolean{
+        myRealm.copyToRealm(book)
+        return true
     }
 
     private fun registToDatabase(name: String,imageUrl:String,maxPage:String){

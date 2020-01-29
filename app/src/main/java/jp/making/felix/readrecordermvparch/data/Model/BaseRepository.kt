@@ -7,5 +7,4 @@ interface BaseRepository {
     suspend fun deleteData(id:String)
     suspend fun searchData(id:String): Book
     suspend fun updateData(id:Int,value:String)
-    suspend fun registData(isbn:String,type:Int):Boolean
 }
