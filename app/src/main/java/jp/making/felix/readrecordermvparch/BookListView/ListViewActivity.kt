@@ -15,7 +15,6 @@ class ListViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
-        Log.i("Realm pass",Realm.getDefaultConfiguration()!!.path.toString())
         val fragment = ListViewFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.nav_host_fragment,fragment)

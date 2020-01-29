@@ -1,21 +1,26 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.BaseModel
+import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
+import kotlinx.coroutines.*
 
-class ListViewPresenter(val DataBase:BaseModel,
+class ListViewPresenter(val BookRepository:BaseRepository,
                         val mView: ListViewContract.View):ListViewContract.Presenter{
     init{
         mView.presenter = this
     }
     override fun start(){
         mView.showProgress()
-        //mView.showAllBooks(getAllData())
+        GlobalScope.launch {
+            withContext(Dispatchers.IO){
+                mView.showAllBooks(getAllData())
+            }
+        }
         mView.deleteProgress()
     }
 
-    /*fun getAllData():List<Book>{
-        return DataBase.getAllData().toList()
-    }*/
+    suspend fun getAllData():List<Book>{
+        return BookRepository.getAllData().toList()
+    }
 
 }
