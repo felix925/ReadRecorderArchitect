@@ -11,15 +11,11 @@ class ListViewPresenter(val BookRepository:BaseRepository,
     }
     override fun start(){
         mView.showProgress()
-        GlobalScope.launch {
-            withContext(Dispatchers.IO){
-                mView.showAllBooks(getAllData())
-            }
-        }
+        mView.showAllBooks(getAllData())
         mView.deleteProgress()
     }
 
-    suspend fun getAllData():List<Book>{
+    fun getAllData():List<Book>{
         return BookRepository.getAllData().toList()
     }
 

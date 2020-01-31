@@ -14,7 +14,9 @@ import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.Model.RemoteBookModel
 import kotlinx.android.synthetic.main.book_list_fragment.*
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
@@ -37,6 +39,11 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpButtonIcon()
+        presenter.start()
+    }
+
+    override fun onResume() {
+        super.onResume()
         presenter.start()
     }
     /**

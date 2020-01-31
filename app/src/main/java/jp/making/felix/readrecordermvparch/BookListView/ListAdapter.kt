@@ -31,10 +31,10 @@ class ListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = layoutInflater.inflate(R.layout.book_item, parent, false)
         if(users[position].imageUrl.isNotEmpty()) {
-            //Picasso.get().load(users[position].imageUrl).into(view.thumbnail)
+            Picasso.get().load(users[position].imageUrl).into(view.thumbnail)
         }
         view.name.text = users[position].name
-        view.comment.text = users[position].lastLog
+        view.comment.text = users[position].updateDate[this.count].toString()
         return view
     }
 }
