@@ -33,8 +33,9 @@ class ListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
         if(users[position].imageUrl.isNotEmpty()) {
             Picasso.get().load(users[position].imageUrl).into(view.thumbnail)
         }
+        val updatePosition = users[position].updateDate.size - 1
         view.name.text = users[position].name
-        view.comment.text = users[position].updateDate[this.count].toString()
+        view.comment.text = users[position].updateDate[updatePosition]?.pageData
         return view
     }
 }

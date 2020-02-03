@@ -78,6 +78,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
             BookList.adapter = ListAdapter(this,books)
             BookList.setOnItemClickListener{_, _, _, id ->
                 pressBooks(id.toInt())
+                Log.i("image",books[id.toInt()].imageUrl)
             }
         }
     }
