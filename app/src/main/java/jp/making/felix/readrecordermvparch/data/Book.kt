@@ -18,7 +18,7 @@ open class Book(
     @ColumnInfo(name = "bookname")
     var name: String = "",
     var imageUrl: String = "",
-    var lastLog: String = "",
+    var updateDate: RealmList<UpdateDate> = RealmList(UpdateDate("")),
     var pages: RealmList<Page> = RealmList(Page(0)),
     var maxPage:String = "",
     var alreadyRead: Boolean = false,
