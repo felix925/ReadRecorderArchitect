@@ -19,7 +19,7 @@
         android:layout_alignStart="@+id/thumbnail"
         android:layout_alignEnd="@+id/thumbnail"
         android:textColor="#000"
-        android:textSize="25sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
