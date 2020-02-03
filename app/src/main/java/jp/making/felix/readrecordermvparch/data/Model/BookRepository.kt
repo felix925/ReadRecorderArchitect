@@ -1,46 +1,54 @@
 package jp.making.felix.readrecordermvparch.data.Model
 
+import android.util.Log
 import jp.making.felix.readrecordermvparch.data.Book
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import kotlinx.coroutines.runBlocking
+import java.lang.Error
 import javax.inject.Singleton
 
 @Singleton
-class BookRepository(val localRepo:ModelContract.LocalData,val remoteRepo:ModelContract.RemoteData):ModelContract.Repository {
+class BookRepository(private val localRepo:ModelContract.LocalData, private val remoteRepo:ModelContract.RemoteData):ModelContract.Repository {
     lateinit var cachedData: MutableList<Book>
     var isDirty: Boolean = true
-    override suspend fun deleteData(id: String) {
+    override fun deleteData(id: String) {
         localRepo.deleteData(id)
         isDirty = true
     }
 
-    override suspend fun getAllData(): List<Book> {
+    override fun getAllData(): List<Book> {
         if ((cachedData.isEmpty()) || isDirty) {
-            this.cachedData = localRepo.getAllData().toMutableList()
+            GlobalScope.launch(Dispatchers.IO) {
+                cachedData = localRepo.getAllData().toMutableList()
+            }
             isDirty = false
         }
         return cachedData
     }
     
     override fun registData(isbn: String, type: Int): Boolean {
-        var isSucces = true
+        var isSuccess = false
+        if (localRepo.searchData(isbn).id == "NOTFOUND") {
+            return isSuccess
+        }
+        lateinit var result:Book
         GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val result = remoteRepo.searchData(isbn, type)
-                localRepo.registData(result)
+            result = remoteRepo.searchData(isbn, type)
+            if (result.id == "ERROR") {
+                isSuccess = false
+            } else {
+                GlobalScope.launch(Dispatchers.Main){localRepo.registData(result)}
                 isDirty = true
-            }
-            catch (e:Exception){
-                isSucces = false
+                isSuccess = true
             }
         }
-        return isSucces
+        Log.i("regist_success_value",isSuccess.toString())
+        return isSuccess
     }
 
-    override suspend fun searchData(id: String): Book {
+    override fun searchData(id: String): Book {
         if((cachedData.isEmpty()) || isDirty){
             this.cachedData = localRepo.getAllData().toMutableList()
             isDirty = false
@@ -48,7 +56,7 @@ class BookRepository(val localRepo:ModelContract.LocalData,val remoteRepo:ModelC
         return cachedData.filter { it.id == id }[0]
     }
 
-    override suspend fun updateData(id: Int, value: String) {
-
+    override fun updateData(id: Int, pageValue: String,thought:String) {
+        localRepo.updateData(id,pageValue,thought)
     }
 }
