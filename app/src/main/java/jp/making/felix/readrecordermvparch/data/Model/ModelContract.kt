@@ -10,6 +10,6 @@ interface ModelContract {
         suspend fun searchData(isbn:String,type: Int):Book
     }
     interface LocalData:BaseRepository{
-        suspend fun registData(book:Book):Boolean
+        fun registData(book:Book):Boolean
     }
 }
