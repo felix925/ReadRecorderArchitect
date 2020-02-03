@@ -3,6 +3,7 @@ package jp.making.felix.readrecordermvparch.data.GoogleBook
 data class VolumeInfo(
     val allowAnonLogging: Boolean,
     val authors: List<String>,
+    val averageRating: Double,
     val canonicalVolumeLink: String,
     val categories: List<String>,
     val contentVersion: String,
@@ -13,11 +14,10 @@ data class VolumeInfo(
     val language: String,
     val maturityRating: String,
     val pageCount: Int,
-    val panelizationSummary: PanelizationSummary,
     val previewLink: String,
     val printType: String,
     val publishedDate: String,
-    val publisher: String,
+    val ratingsCount: Int,
     val readingModes: ReadingModes,
     val title: String
 )
