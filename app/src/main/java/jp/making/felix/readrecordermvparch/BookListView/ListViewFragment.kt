@@ -9,14 +9,11 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import dagger.internal.DaggerCollections
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.RemoteBookModel
 import kotlinx.android.synthetic.main.book_list_fragment.*
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
@@ -44,6 +41,8 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onResume() {
         super.onResume()
+        Log.i("RESUME","RESUME IS CALLED")
+        Log.i("Presenter",presenter.toString())
         presenter.start()
     }
     /**
@@ -78,6 +77,8 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
             BookList.adapter = ListAdapter(this,books)
             BookList.setOnItemClickListener{_, _, _, id ->
                 pressBooks(id.toInt())
+                Bundle().putString("id",id.toString())
+                findNavController().navigate(R.id.action_list_to_data)
                 Log.i("image",books[id.toInt()].imageUrl)
             }
         }
