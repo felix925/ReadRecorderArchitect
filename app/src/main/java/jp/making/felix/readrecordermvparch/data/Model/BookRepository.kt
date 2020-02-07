@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.lang.Error
 import javax.inject.Singleton
 
 @Singleton
@@ -30,22 +29,25 @@ class BookRepository(private val localRepo:ModelContract.LocalData, private val 
     
     override fun registData(isbn: String, type: Int): Boolean {
         var isSuccess = false
-        if (localRepo.searchData(isbn).id == "NOTFOUND") {
+        val books = localRepo.searchData(isbn)
+        Log.i("books",books.id)
+        if (localRepo.searchData(isbn).id != "NOTFOUND") {
             return isSuccess
         }
         lateinit var result:Book
-        GlobalScope.launch(Dispatchers.IO) {
-            result = remoteRepo.searchData(isbn, type)
-            if (result.id == "ERROR") {
-                isSuccess = false
-            } else {
-                GlobalScope.launch(Dispatchers.Main){localRepo.registData(result)}
-                isDirty = true
-                isSuccess = true
+        return runBlocking {
+            GlobalScope.launch(Dispatchers.IO) {
+                result = remoteRepo.searchData(isbn, type)
+                if (result.id == "ERROR") {
+                    isSuccess = false
+                } else {
+                    GlobalScope.launch(Dispatchers.Main) { localRepo.registData(result) }
+                    isDirty = true
+                    isSuccess = true
+                }
             }
+            isSuccess
         }
-        Log.i("regist_success_value",isSuccess.toString())
-        return isSuccess
     }
 
     override fun searchData(id: String): Book {
