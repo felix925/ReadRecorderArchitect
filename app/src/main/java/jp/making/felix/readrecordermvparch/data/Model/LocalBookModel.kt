@@ -24,7 +24,7 @@ class LocalBookModel: ModelContract.LocalData {
     }
 
     override fun searchData(id: String): Book {
-        val result = myRealm.where(Book::class.java).equalTo("id",id).findFirst()
+        val result = myRealm.where(Book::class.java).equalTo("isbn",id).findFirst()
         if(result != null){
             return result
         }
@@ -50,6 +50,7 @@ class LocalBookModel: ModelContract.LocalData {
         myRealm.executeTransaction{
             val bookData = myRealm.createObject(Book::class.java,UUID.randomUUID().toString())
             bookData.name = book.name
+            bookData.isbn = book.isbn
             bookData.imageUrl = book.imageUrl
             bookData.maxPage = book.maxPage
             bookData.updateDate.add(UpdateDate(getDate()))
