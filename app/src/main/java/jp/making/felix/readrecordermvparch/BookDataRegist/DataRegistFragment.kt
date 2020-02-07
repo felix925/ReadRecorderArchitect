@@ -36,11 +36,9 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
             it.error?.apply {
                 deleteEditError()
             }
-            val validation:Boolean = presenter.registData(it.text.toString())
-            if (validation) {
-                findNavController().navigate(R.id.action_regist_to_list)
-                }
-            }
+            presenter.registData(it.text.toString())
+            findNavController().navigate(R.id.action_regist_to_list)
+        }
     }
 
     override fun deleteProgress() {
