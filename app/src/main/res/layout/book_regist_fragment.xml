@@ -14,6 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:text="本のISBN番号を入力してください"
+        app:layout_anchorGravity="center"
+
         />
 
     <EditText
@@ -22,5 +24,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberSigned"
-        app:layout_anchor="@id/isbnEdit" />
+        app:layout_anchor="@id/isbnEdit"
+        app:layout_anchorGravity="center_vertical" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
