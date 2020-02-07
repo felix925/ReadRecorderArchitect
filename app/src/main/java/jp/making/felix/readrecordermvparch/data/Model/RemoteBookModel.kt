@@ -1,7 +1,6 @@
 package jp.making.felix.readrecordermvparch.data.Model
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.squareup.moshi.Moshi
 import io.realm.RealmList
 import jp.making.felix.readrecordermvparch.data.Book
@@ -10,8 +9,6 @@ import jp.making.felix.readrecordermvparch.data.Page
 import jp.making.felix.readrecordermvparch.data.UpdateDate
 import kotlinx.coroutines.*
 import okhttp3.*
-import okhttp3.internal.wait
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,7 +27,6 @@ class RemoteBookModel:ModelContract.RemoteData{
             .url("https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}")
             .build()
         val moshiAdapter = Moshi.Builder().build().adapter(GoogleBook::class.java)
-        var book: Book = Book("ERROR")
         return withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
             val resString = response.body!!.string()
@@ -42,6 +38,7 @@ class RemoteBookModel:ModelContract.RemoteData{
             val updateDate = UpdateDate(getDate())
             Book(
                 UUID.randomUUID().toString(),
+                isbn,
                 bookName,
                 imageURL,
                 RealmList(updateDate),
