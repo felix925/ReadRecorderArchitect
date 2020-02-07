@@ -27,8 +27,10 @@ class DataRegistPresenter(val BookRepository: ModelContract.Repository,
         }
         if(validationCheck(isbn)) {
             val flag = BookRepository.registData(isbn,0)
+            
             if(!flag){
                 mView.showToast(NotFoundError.message)
+                return false
             }
             return flag
         }
@@ -36,7 +38,6 @@ class DataRegistPresenter(val BookRepository: ModelContract.Repository,
             mView.showToast(ValidateError.message)
             return false
          }
-
     }
     //入力されたISBN番号が正しいのバリデーションチェック
     private fun validationCheck(isbn: String):Boolean {
