@@ -18,13 +18,14 @@ class BookRepository(private val localRepo:ModelContract.LocalData, private val 
     }
 
     override fun getAllData(): List<Book> {
-        if ((cachedData.isEmpty()) || isDirty) {
-            GlobalScope.launch(Dispatchers.IO) {
-                cachedData = localRepo.getAllData().toMutableList()
-            }
+        if (isDirty) {
+            cachedData = localRepo.getAllData().toMutableList()
             isDirty = false
+            return cachedData
         }
-        return cachedData
+        else{
+            return cachedData
+        }
     }
     
     override fun registData(isbn: String, type: Int): Boolean {
@@ -51,7 +52,7 @@ class BookRepository(private val localRepo:ModelContract.LocalData, private val 
     }
 
     override fun searchData(id: String): Book {
-        if((cachedData.isEmpty()) || isDirty){
+        if(isDirty){
             this.cachedData = localRepo.getAllData().toMutableList()
             isDirty = false
         }
