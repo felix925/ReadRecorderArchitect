@@ -14,5 +14,6 @@ interface DataViewContract {
     interface Presenter: BasePresenter{
         fun getPageData(id:String):Pair<Array<Page>,Int>
         fun getThoughtData(id: String):Array<Logs>
+        fun getBookId(id: String):String
     }
 }
