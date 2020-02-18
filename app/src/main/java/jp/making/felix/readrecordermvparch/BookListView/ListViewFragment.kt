@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecorder.ListAdapter
@@ -41,8 +42,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onResume() {
         super.onResume()
-        Log.i("RESUME","RESUME IS CALLED")
-        Log.i("Presenter",presenter.toString())
         presenter.start()
     }
     /**
@@ -67,6 +66,8 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * */
     override fun pressBooks(count:Int) {
         Log.i("BOOK_ID",count.toString())
+        val action = ListViewFragmentDirections.actionListToData(count.toString())
+        findNavController().navigate(action)
     }
     /**
      * リストアダプタと繋げてDaoから取得したデータを渡す
@@ -77,9 +78,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
             BookList.adapter = ListAdapter(this,books)
             BookList.setOnItemClickListener{_, _, _, id ->
                 pressBooks(id.toInt())
-                Bundle().putString("id",id.toString())
-                findNavController().navigate(R.id.action_list_to_data)
-                Log.i("image",books[id.toInt()].imageUrl)
             }
         }
     }
