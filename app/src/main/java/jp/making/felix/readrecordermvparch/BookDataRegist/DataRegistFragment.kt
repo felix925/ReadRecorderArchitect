@@ -25,9 +25,11 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     ): View? {
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
         DataRegistPresenter(BookRepository(LocalBookModel(),RemoteBookModel()),this)
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener{
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             FabAction()
         }
+
+
         return view
     }
 
@@ -37,7 +39,7 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
                 deleteEditError()
             }
             presenter.registData(it.text.toString())
-            findNavController().navigate(R.id.action_regist_to_list)
+            findNavController().popBackStack()
         }
     }
 
