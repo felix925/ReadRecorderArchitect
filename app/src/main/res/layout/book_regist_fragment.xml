@@ -6,24 +6,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".BookDataRegist.DataRegistFragment">
     <!-- 以下のTextViewのtextは後々カメラを導入した際に消す可能性があるためStringファイルに値としてもたせていない-->
+
     <TextView
         android:id="@+id/isbnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
         android:text="本のISBN番号を入力してください"
-        app:layout_anchorGravity="center"
-
-        />
+        app:layout_anchorGravity="center" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:inputType="numberSigned"
-        app:layout_anchor="@id/isbnEdit"
-        app:layout_anchorGravity="center_vertical" />
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:layout_anchorGravity="center"
+        tools:ignore="LabelFor" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -59,7 +59,7 @@ class BookRepository(private val localRepo:ModelContract.LocalData, private val 
         return cachedData.filter { it.id == id }[0]
     }
 
-    override fun updateData(id: Int, pageValue: String,thought:String) {
+    override fun updateData(id: String, pageValue: String,thought:String) {
         localRepo.updateData(id,pageValue,thought)
     }
 }

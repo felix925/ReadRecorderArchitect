@@ -1,6 +1,7 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Logs
 import jp.making.felix.readrecordermvparch.data.Page
+import java.util.function.LongFunction
 
 class thoughtListAdapter(context: Context, val logs: List<Logs>, val page: List<Page>): BaseAdapter() {
     private val inflater = LayoutInflater.from(context)
@@ -38,7 +40,8 @@ class thoughtListAdapter(context: Context, val logs: List<Logs>, val page: List<
         val viewHolder = view.tag as ViewHolder
 
         viewHolder.thoughtPage.text = page[position].pageData.toString()
-        viewHolder.thoughtText.text = getItem(position)
+        viewHolder.thoughtText.text = if (getItem(position).length > 5) getItem(position).substring(0,5) else getItem(position)
+
         return view
     }
 }

@@ -34,10 +34,12 @@
             app:enterAnim="@anim/upmove"
             app:exitAnim="@anim/upmove"/>
         <action
-            android:id="@+id/action_data_to_list"
-            app:destination="@id/listViewFragment"
+            android:id="@+id/action_data_to_update"
+            app:destination="@+id/dataUpdateFragment"
             app:enterAnim="@anim/upmove"
-            app:exitAnim="@anim/upmove"/>
+            app:exitAnim="@anim/upmove"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
@@ -51,5 +53,19 @@
             app:enterAnim="@anim/upmove"
             app:exitAnim="@anim/upmove"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/dataUpdateFragment"
+        android:name="jp.making.felix.readrecordermvparch.BookDataUpdate.DataUpdateFragment"
+        android:label="book_update_fragment"
+        tools:layout="@layout/book_update_fragment">
+        <argument android:name="BOOKID"
+            android:defaultValue="default"
+            app:argType="string"
+            app:enterAnim="@anim/upmove"
+            app:exitAnim="@anim/upmove"/>
+    </fragment>
+
+
 
 </navigation>

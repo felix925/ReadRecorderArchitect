@@ -6,5 +6,5 @@ interface BaseRepository {
     fun getAllData():List<Book>
     fun deleteData(id:String)
     fun searchData(id:String): Book
-    fun updateData(id:Int,pageValue:String,thought:String)
+    fun updateData(id:String,pageValue:String,thought:String)
 }

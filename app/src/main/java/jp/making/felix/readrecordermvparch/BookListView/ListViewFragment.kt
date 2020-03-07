@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
@@ -43,7 +44,17 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     override fun onResume() {
         super.onResume()
         presenter.start()
+        context?.apply{
+            BookList.isVisible = true
+        }
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("pause is called", context.toString())
+
+    }
+
     /**
      * 待機するときのぐるぐる回るやつ（プログレスバー）を表示する
      * */
@@ -65,7 +76,9 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * ここからidを取得してintentに保存してFragment移動をViewでさせる
      * */
     override fun pressBooks(count:Int) {
-        Log.i("BOOK_ID",count.toString())
+        context?.apply {
+            BookList.isVisible = false
+        }
         val action = ListViewFragmentDirections.actionListToData(count.toString())
         findNavController().navigate(action)
     }
@@ -92,6 +105,9 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * */
     
     override fun FabAction() {
+        context?.apply {
+            BookList.isVisible = false
+        }
         findNavController().navigate(R.id.action_list_to_regist)
     }
 }

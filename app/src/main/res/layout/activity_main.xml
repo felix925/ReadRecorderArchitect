@@ -25,14 +25,14 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout> -->
+
     <fragment
         android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/home_navigation"
         app:defaultNavHost="true"
-        />
+        app:navGraph="@navigation/home_navigation" />
 
     <ProgressBar
         android:id="@+id/mainProgress"
@@ -49,9 +49,9 @@
         android:layout_gravity="bottom"
         app:backgroundTint="#424242"
         app:fabCradleRoundedCornerRadius="36dp"
-        app:hideOnScroll="true"
-        app:navigationIcon="@drawable/filter"
-        />
+        app:hideOnScroll="true"/>
+    <!--        app:navigationIcon="@drawable/filter"-->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

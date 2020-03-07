@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "414213029149",
+    "firebase_url": "https://readrecorder.firebaseio.com",
+    "project_id": "readrecorder",
+    "storage_bucket": "readrecorder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414213029149:android:92e77e089ef1e6df7ab5f4",
+        "android_client_info": {
+          "package_name": "jp.making.felix.readrecordermvparch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414213029149-leovsbemtsbq3q7068n9t5ictt4iti4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL8jgg6G7ozjsxrpQCO_7aFSa7QfF2OnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414213029149-leovsbemtsbq3q7068n9t5ictt4iti4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

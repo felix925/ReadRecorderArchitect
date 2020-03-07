@@ -33,7 +33,7 @@ class LocalBookModel: ModelContract.LocalData {
         }
     }
 
-    override fun updateData(id: Int,pageValue: String, thought: String) {
+    override fun updateData(id: String,pageValue: String, thought: String) {
         myRealm.executeTransaction{
             val result = myRealm.where(Book::class.java).equalTo("id",id).findFirst()
             if(result != null){

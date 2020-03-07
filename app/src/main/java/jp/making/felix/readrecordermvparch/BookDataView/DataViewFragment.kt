@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.charts.LineChart
@@ -19,8 +19,7 @@ import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
 import jp.making.felix.readrecordermvparch.data.Model.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Page
-import kotlinx.android.synthetic.main.book_data_fragment.*
-import java.util.*
+
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     override lateinit var presenter: DataViewContract.Presenter
@@ -32,25 +31,26 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        DataViewPresenter(LocalBookModel(),this)
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
         DataViewPresenter(BookRepository(LocalBookModel(),RemoteBookModel()),this)
         chart = view.findViewById(R.id.pagechart)
         list = view.findViewById(R.id.thoughtList)
-        Log.i("chartData",chart.toString())
         // Bundleを取得する
         presenter.getBookId(args.BOOKID).let {
             SetUpChart(it,chart)
             SetUpThoughtList(it,list)
         }
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener{
-            FabAction()
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
+            it.setOnClickListener {
+                FabAction()
+            }
         }
         return view
     }
 
     override fun FabAction() {
-        findNavController().navigate(R.id.action_data_to_list)
+        val action = DataViewFragmentDirections.actionDataToUpdate(presenter.getBookId(args.BOOKID))
+        findNavController().navigate(action)
     }
 
     /**
@@ -79,17 +79,22 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         val pageData:Pair<Array<Page>,Int> = presenter.getPageData(position)
         lineChart.data = chartAdapt.setUpChart(lineChart,pageData.first,pageData.second)
     }
+
     private fun SetUpThoughtList(position: String,list:ListView){
         val thought = presenter.getThoughtData(position).toList()
         val page = presenter.getPageData(position).first.toList()
         context?.apply {
             list.adapter = thoughtListAdapter(this,thought,page)
             list.setOnItemClickListener{_, _, _, id ->
-                pressThought(id.toInt())
+                pressThought(thought[id.toInt()].logData,page[id.toInt()].pageData)
             }
         }
     }
-    private fun pressThought(id:Int){
-        
+
+    private fun pressThought(thought:String,id:Int){
+        val dialog = AlertDialog.Builder(this.context!!)
+        dialog.setTitle(id.toString() + "ページ目の感想")
+        dialog.setMessage(thought)
+        dialog.show()
     }
 }
