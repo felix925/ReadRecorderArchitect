@@ -5,7 +5,6 @@ import com.squareup.moshi.Moshi
 import io.realm.RealmList
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
-import jp.making.felix.readrecordermvparch.data.Model.ModelContract
 import jp.making.felix.readrecordermvparch.data.Page
 import jp.making.felix.readrecordermvparch.data.UpdateDate
 import kotlinx.coroutines.*
@@ -13,16 +12,12 @@ import okhttp3.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RemoteBookModel:
-    ModelContract.RemoteData {
-    override suspend fun searchData(isbn: String, type: Int): Book {
-        lateinit var book:Book
-        when(type){
-            0 -> book = searchFromGoogle(isbn)
-            else -> throw Error("BOOK IS UNDEFINED")
+class RemoteBookModel {
+    suspend fun searchData(isbn: String, type: Int): Book =
+        when(type) {
+            0 -> searchFromGoogle(isbn)
+            else -> Book("UNDEFINED")
         }
-        return book
-    }
     private suspend fun searchFromGoogle(isbn: String):Book {
         val client = OkHttpClient()
         val request = Request.Builder()
