@@ -3,39 +3,27 @@ package jp.making.felix.readrecordermvparch.data.Model.Local
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.Logs
-import jp.making.felix.readrecordermvparch.data.Model.ModelContract
 import jp.making.felix.readrecordermvparch.data.Page
 import jp.making.felix.readrecordermvparch.data.UpdateDate
 import java.util.*
 import java.text.SimpleDateFormat
 
-class LocalBookModel:
-    ModelContract.LocalData {
+class LocalBookModel {
     private companion object realm{
          val myRealm:Realm = Realm.getDefaultInstance()
     }
-    override fun deleteData(id: String) {
+    fun deleteData(id: String) {
         myRealm.executeTransaction {
             it.where(Book::class.java).equalTo("id",id)
                 .findFirst()?.deleteFromRealm()
         }
     }
 
-    override fun getAllData():List<Book> {
-        return myRealm.where(Book::class.java).findAll().toList()
-    }
+    fun getAllData():List<Book> = myRealm.where(Book::class.java).findAll().toList()
 
-    override fun searchData(id: String): Book {
-        val result = myRealm.where(Book::class.java).equalTo("isbn",id).findFirst()
-        if(result != null){
-            return result
-        }
-        else{
-            return Book("NOTFOUND")
-        }
-    }
+    fun searchData(id: String): Book = myRealm.where(Book::class.java).equalTo("isbn",id).findFirst() ?: Book("NOTFOUND")
 
-    override fun updateData(id: String,pageValue: String, thought: String) {
+    fun updateData(id: String,pageValue: String, thought: String) {
         myRealm.executeTransaction{
             val result = myRealm.where(Book::class.java).equalTo("id",id).findFirst()
             if(result != null){
@@ -48,7 +36,7 @@ class LocalBookModel:
         }
     }
 
-    override fun registData(book: Book):Boolean{
+    fun registData(book: Book){
         myRealm.executeTransaction{
             val bookData = myRealm.createObject(Book::class.java,UUID.randomUUID().toString())
             bookData.name = book.name
@@ -60,7 +48,6 @@ class LocalBookModel:
             bookData.alreadyRead = false
             myRealm.copyToRealm(bookData)
         }
-        return true
     }
 
     private fun getDate():String{
