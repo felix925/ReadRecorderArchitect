@@ -1,10 +1,11 @@
-package jp.making.felix.readrecordermvparch.data.Model
+package jp.making.felix.readrecordermvparch.data.Model.Remote
 
 import android.annotation.SuppressLint
 import com.squareup.moshi.Moshi
 import io.realm.RealmList
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
+import jp.making.felix.readrecordermvparch.data.Model.ModelContract
 import jp.making.felix.readrecordermvparch.data.Page
 import jp.making.felix.readrecordermvparch.data.UpdateDate
 import kotlinx.coroutines.*
@@ -12,7 +13,8 @@ import okhttp3.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RemoteBookModel:ModelContract.RemoteData{
+class RemoteBookModel:
+    ModelContract.RemoteData {
     override suspend fun searchData(isbn: String, type: Int): Book {
         lateinit var book:Book
         when(type){
@@ -36,6 +38,7 @@ class RemoteBookModel:ModelContract.RemoteData{
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()
             val updateDate = UpdateDate(getDate())
+
             Book(
                 UUID.randomUUID().toString(),
                 isbn,

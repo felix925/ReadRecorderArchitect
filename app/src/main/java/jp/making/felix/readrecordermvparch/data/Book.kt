@@ -18,5 +18,5 @@ open class Book(
     var maxPage:String = "",
     var alreadyRead: Boolean = false,
     var tag:RealmList<Tag> = RealmList(Tag("ALL")),
-    var readLog: RealmList<Logs> = RealmList(Logs("下のボタンから感想とページを追加しよう"))
+    var readLog: RealmList<Logs> = RealmList(Logs(""))
 ):RealmObject(),Serializable

@@ -1,14 +1,16 @@
-package jp.making.felix.readrecordermvparch.data.Model
+package jp.making.felix.readrecordermvparch.data.Model.Local
 
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.Logs
+import jp.making.felix.readrecordermvparch.data.Model.ModelContract
 import jp.making.felix.readrecordermvparch.data.Page
 import jp.making.felix.readrecordermvparch.data.UpdateDate
 import java.util.*
 import java.text.SimpleDateFormat
 
-class LocalBookModel: ModelContract.LocalData {
+class LocalBookModel:
+    ModelContract.LocalData {
     private companion object realm{
          val myRealm:Realm = Realm.getDefaultInstance()
     }
