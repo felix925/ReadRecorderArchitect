@@ -10,7 +10,8 @@ interface DataRegistContract {
         fun showToast(text:String)
         fun showEditError(text:String)
     }
-    interface Presenter: BasePresenter{
+    interface Presenter: BasePresenter<View>{
+        fun loadBooks()
         fun registData(isbn:String):Boolean
     }
 }
