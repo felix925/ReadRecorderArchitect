@@ -1,7 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataUpdate
 
 import android.util.Log
-import jp.making.felix.readrecordermvparch.data.Model.ModelContract
 
 class DataUpdatePresenter (val BookRepository: ModelContract.Repository,
                            val mView: DataUpdateContract.View): DataUpdateContract.Presenter{
