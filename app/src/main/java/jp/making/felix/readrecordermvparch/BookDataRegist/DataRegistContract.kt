@@ -1,10 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
 import jp.making.felix.readrecordermvparch.Base.BasePresenter
-import jp.making.felix.readrecordermvparch.Base.BaseView
 
 interface DataRegistContract {
-    interface View: BaseView<Presenter> {
+    interface View{
         fun showProgress()
         fun deleteProgress()
         fun showToast(text:String)

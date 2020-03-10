@@ -1,6 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
-import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
+import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

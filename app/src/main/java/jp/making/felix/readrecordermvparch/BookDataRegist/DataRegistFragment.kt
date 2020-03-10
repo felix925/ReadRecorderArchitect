@@ -12,12 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.Repository.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
+import javax.inject.Inject
 
-class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
-    override lateinit var presenter: DataRegistContract.Presenter
+class DataRegistFragment : Fragment(), DataRegistContract.View, BaseFragment{
+    lateinit var presenter: DataRegistContract.Presenter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,9 +25,8 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     ): View? {
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
         DataRegistPresenter(BookRepository(
-            LocalBookModel(),
             RemoteBookModel()
-        ),this)
+        ))
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             FabAction()
         }

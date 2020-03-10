@@ -12,23 +12,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.Repository.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
 import kotlinx.android.synthetic.main.book_update_fragment.*
 
 class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
-    override lateinit var presenter: DataUpdateContract.Presenter
+    lateinit var presenter: DataUpdateContract.Presenter
     val args: DataViewFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
     val view = inflater.inflate(R.layout.book_update_fragment,container,false)
-    DataUpdatePresenter(BookRepository(LocalBookModel(),
+    DataUpdatePresenter(BookRepository(
         RemoteBookModel()
-    ),this)
+    ))
     activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
         it.setOnClickListener {
             FabAction()
@@ -48,7 +48,7 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
             val page = pageInput.text.toString()
             val thought = thoughtInput.text.toString()
             if(page.isNotEmpty()) {
-                presenter.registData(args.BOOKID, page, thought)
+                presenter.updateData(args.BOOKID, page, thought)
             }
             findNavController().popBackStack()
         }

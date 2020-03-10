@@ -15,17 +15,19 @@ import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
-import jp.making.felix.readrecordermvparch.data.Page
+import jp.making.felix.readrecordermvparch.data.Repository.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import javax.inject.Inject
 
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
-    override lateinit var presenter: DataViewContract.Presenter
+
+    lateinit var presenter: DataViewContract.Presenter
     val args:DataViewFragmentArgs by navArgs()
     lateinit var chart:LineChart
     lateinit var list:ListView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,9 +35,8 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
         DataViewPresenter(BookRepository(
-            LocalBookModel(),
             RemoteBookModel()
-        ),this)
+        ))
         chart = view.findViewById(R.id.pagechart)
         list = view.findViewById(R.id.thoughtList)
         // Bundleを取得する

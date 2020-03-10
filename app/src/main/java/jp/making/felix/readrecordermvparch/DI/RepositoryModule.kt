@@ -1,8 +1,17 @@
 package jp.making.felix.readrecordermvparch.DI
 
-import dagger.Component
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
+import jp.making.felix.readrecordermvparch.data.Repository.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
+import javax.inject.Singleton
 
-//@Component(modules = [DataBaseModule::class])
-//interface RepositoryModule {
-//    fun inject()
-//}
+@Module
+class RepositoryModule {
+    @Singleton
+    @Provides
+    fun provideBookRepository():BookRepository = BookRepository(RemoteBookModel())
+}

@@ -1,36 +1,68 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
-import android.util.Log
-import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Logs
-import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
-import jp.making.felix.readrecordermvparch.data.Page
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Logs
+import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.Exception
+import kotlin.coroutines.CoroutineContext
 
-class DataViewPresenter(val BookRepository: BaseRepository,
-                        val mView: DataViewContract.View):DataViewContract.Presenter{
-    init{
-        mView.presenter = this
+class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Presenter{
+    var mView: DataViewContract.View? = null
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
+    override fun takeView(view: DataViewContract.View) {
+        mView = view
     }
-
     override fun start(){
-        mView.showProgress()
-        mView.deleteProgress()
+        mView?.showProgress()
+        mView?.deleteProgress()
     }
     override fun getPageData(id: String): Pair<Array<Page>, Int> {
-        val books = BookRepository.searchData(id)
-        Log.i("books",books.toString())
-        val log = books.pages.toTypedArray()
-        val maxPage = books.maxPage.toInt()
-        return Pair(log,maxPage)
+        var books: Book = Book()
+        var log:Array<Page>? = null
+        var maxPage = 0
+        launch {
+            runCatching { books = BookRepository.searchData(id) }
+                .onFailure { throw NoSuchFieldException("Book NotFound") }
+                .onSuccess {
+                    log = books.pages.toTypedArray()
+                    maxPage = books.maxPage.toInt()
+                }
+        }
+        if(log != null) {
+            return Pair(log!!, maxPage)
+        }
+        else {
+            throw Exception("Valid Error")
+        }
     }
 
     override fun getThoughtData(id: String): Array<Logs> {
-        val books = BookRepository.searchData(id)
-        return books.readLog.toTypedArray()
+        var books:Book? = null
+        launch {
+            books = BookRepository.searchData(id)
+        }
+        if (books != null) {
+            return books!!.readLog.toTypedArray()
+        }
+        else{
+            throw Exception("Illegal touch")
+        }
     }
 
     override fun getBookId(id: String):String{
-        val books = BookRepository.getAllData()
-        return books[id.toInt()].id
+        var books:List<Book>? = null
+        launch {
+            books = BookRepository.getAllData()
+        }
+        if (books != null) {
+            return books!![id.toInt()].id
+        }
+        else{
+            throw Exception("Illegal touch")
+        }
     }
 }

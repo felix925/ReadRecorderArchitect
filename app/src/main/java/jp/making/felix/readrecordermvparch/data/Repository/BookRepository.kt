@@ -1,19 +1,16 @@
-package jp.making.felix.readrecordermvparch.data.Model
+package jp.making.felix.readrecordermvparch.data.Repository
 
-import android.util.Log
-import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
+import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class BookRepository(private val localRepo:LocalBookModel, private val remoteRepo:RemoteBookModel):BaseRepository{
+class BookRepository (private val remoteRepo:RemoteBookModel):BaseRepository{
     lateinit var cachedData: MutableList<Book>
     var isDirty: Boolean = true
+    private val localRepo:LocalBookModel = LocalBookModel()
+
     override suspend fun deleteData(id: String) {
         localRepo.deleteData(id)
         isDirty = true
@@ -36,16 +33,14 @@ class BookRepository(private val localRepo:LocalBookModel, private val remoteRep
         if (localRepo.searchData(isbn).id != "NOTFOUND") {
             return isSuccess
         }
-        lateinit var result:Book
-        GlobalScope.launch(Dispatchers.IO) {
-            result = remoteRepo.searchData(isbn, type)
-            if (result.id == "ERROR") {
-                isSuccess = false
-            } else {
-                localRepo.registData(result)
-                isDirty = true
-                isSuccess = true
-            }
+        lateinit var result: Book
+        result = remoteRepo.searchData(isbn, type)
+        if (result.id == "ERROR") {
+            isSuccess = false
+        } else {
+            localRepo.registData(result)
+            isDirty = true
+            isSuccess = true
         }
         //TODO コルーチン内で変数書き換えがあった際に結果を返すのをまつ仕様かを再確認し、それがメインスレッドを待たせるようなことがあれば対策を考えて修正する
         return isSuccess

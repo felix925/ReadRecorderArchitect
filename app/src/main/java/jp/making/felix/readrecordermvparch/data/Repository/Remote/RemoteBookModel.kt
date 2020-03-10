@@ -1,24 +1,26 @@
-package jp.making.felix.readrecordermvparch.data.Model.Remote
+package jp.making.felix.readrecordermvparch.data.Repository.Remote
 
 import android.annotation.SuppressLint
 import com.squareup.moshi.Moshi
 import io.realm.RealmList
-import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
-import jp.making.felix.readrecordermvparch.data.Page
-import jp.making.felix.readrecordermvparch.data.UpdateDate
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import jp.making.felix.readrecordermvparch.data.BookModel.UpdateDate
 import kotlinx.coroutines.*
 import okhttp3.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Singleton
 
+@Singleton
 class RemoteBookModel {
     suspend fun searchData(isbn: String, type: Int): Book =
         when(type) {
             0 -> searchFromGoogle(isbn)
             else -> Book("UNDEFINED")
         }
-    private suspend fun searchFromGoogle(isbn: String):Book {
+    private suspend fun searchFromGoogle(isbn: String): Book {
         val client = OkHttpClient()
         val request = Request.Builder()
             .url("https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}")
@@ -27,12 +29,14 @@ class RemoteBookModel {
         return withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
             val resString = response.body!!.string()
-            val bookData =
-                moshiAdapter.fromJson(resString) ?: throw Error("Book is not Found")
+            val bookData = moshiAdapter.fromJson(resString) ?: throw Error("Book is not Found")
             val bookName = bookData.items[0].volumeInfo.title
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()
-            val updateDate = UpdateDate(getDate())
+            val updateDate =
+                UpdateDate(
+                    getDate()
+                )
 
             Book(
                 UUID.randomUUID().toString(),
@@ -40,7 +44,11 @@ class RemoteBookModel {
                 bookName,
                 imageURL,
                 RealmList(updateDate),
-                RealmList(Page(0)),
+                RealmList(
+                    Page(
+                        0
+                    )
+                ),
                 maxPage,
                 false
             )
