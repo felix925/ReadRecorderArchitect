@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,19 +13,28 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
+import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import kotlinx.android.synthetic.main.book_list_fragment.*
+import javax.inject.Inject
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
-    override lateinit var presenter:ListViewContract.Presenter
+    @Inject lateinit var presenter:ListViewContract.Presenter
     lateinit var fab:FloatingActionButton
+
+    override fun onAttach(context: Context) {
+        (activity!!.application as App).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
 
-        ListViewPresenter(BookRepository(),this)
+        ListViewPresenter(BookRepository())
+        presenter.attachView(this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
             fab = it
         }
