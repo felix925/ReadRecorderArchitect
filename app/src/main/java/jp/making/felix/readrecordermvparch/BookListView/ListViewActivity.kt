@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import jp.making.felix.readrecordermvparch.DI.AppComponent
+import jp.making.felix.readrecordermvparch.DI.DaggerAppComponent
 
 
 class ListViewActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class ListViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
-//        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.create()
         val fragment = ListViewFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.nav_host_fragment,fragment)
