@@ -17,19 +17,13 @@ import javax.inject.Singleton
 class DataBaseModule {
     @Singleton
     @Provides
-    @Named("bookRepository")
-    fun provideRepository(): BookRepository = BookRepository()
-    @Singleton
-    @Provides
     fun provideLocalRepository(): LocalBookModel = LocalBookModel()
+
     @Singleton
     @Provides
     fun provideRemoteRepository(): RemoteBookModel = RemoteBookModel()
 
     @Singleton
     @Provides
-    fun provideListViewPresenter(
-        @Named("bookRepository") repository: BookRepository
-    ): ListViewContract.Presenter = ListViewPresenter(repository)
-
+    fun provideRepository(): BookRepository = BookRepository()
 }
