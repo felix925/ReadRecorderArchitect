@@ -16,8 +16,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Page
 
 
@@ -32,7 +32,7 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
-        DataViewPresenter(BookRepository(LocalBookModel(),RemoteBookModel()),this)
+        DataViewPresenter(BookRepository(),this)
         chart = view.findViewById(R.id.pagechart)
         list = view.findViewById(R.id.thoughtList)
         // Bundleを取得する

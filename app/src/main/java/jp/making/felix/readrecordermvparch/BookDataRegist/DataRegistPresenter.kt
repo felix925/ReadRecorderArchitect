@@ -1,17 +1,20 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
+import jp.making.felix.readrecordermvparch.DI.FragmentScope
 import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
-import jp.making.felix.readrecordermvparch.data.Model.ModelContract
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 private data class ErrorMessage(val message:String)
 
-class DataRegistPresenter(val BookRepository: ModelContract.Repository,
+@FragmentScope
+class DataRegistPresenter(val BookRepository: BaseRepository,
                           val mView: DataRegistContract.View): DataRegistContract.Presenter{
     private val ValidateError = ErrorMessage("正しい情報を入力してください")
     private val NotFoundError = ErrorMessage("本がすでに登録されているか、見つかりませんでした")
-
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     init{
         mView.presenter = this
     }
@@ -26,8 +29,8 @@ class DataRegistPresenter(val BookRepository: ModelContract.Repository,
             mView.showEditError("ISBNを入力してください")
         }
         if(validationCheck(isbn)) {
-            val flag = BookRepository.registData(isbn,0)
-            
+//            val flag = BookRepository.registData(isbn,0)
+            val flag = false
             if(!flag){
                 mView.showToast(NotFoundError.message)
                 return false

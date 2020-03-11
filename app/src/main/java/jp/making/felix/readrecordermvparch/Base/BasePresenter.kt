@@ -1,5 +1,17 @@
 package jp.making.felix.readrecordermvparch.Base
 
-interface BasePresenter {
+import androidx.annotation.CallSuper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlin.coroutines.CoroutineContext
+
+interface BasePresenter : CoroutineScope{
+    override val coroutineContext: CoroutineContext
+
     fun start()
+
+    @CallSuper
+    fun dropView(){
+        coroutineContext.cancel()
+    }
 }

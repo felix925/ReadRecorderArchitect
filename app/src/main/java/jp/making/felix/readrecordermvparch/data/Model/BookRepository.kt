@@ -1,17 +1,15 @@
 package jp.making.felix.readrecordermvparch.data.Model
 
-import android.util.Log
 import jp.making.felix.readrecordermvparch.data.Book
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import javax.inject.Singleton
+import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 
-@Singleton
-class BookRepository(private val localRepo:ModelContract.LocalData, private val remoteRepo:ModelContract.RemoteData):ModelContract.Repository {
-    lateinit var cachedData: MutableList<Book>
-    var isDirty: Boolean = true
+class BookRepository():BaseRepository{
+    private lateinit var cachedData: MutableList<Book>
+    private val localRepo:LocalBookModel = LocalBookModel()
+    private val remoteRepo:RemoteBookModel = RemoteBookModel()
+    private var isDirty: Boolean = true
+
     override fun deleteData(id: String) {
         localRepo.deleteData(id)
         isDirty = true
@@ -21,34 +19,24 @@ class BookRepository(private val localRepo:ModelContract.LocalData, private val 
         if (isDirty) {
             cachedData = localRepo.getAllData().toMutableList()
             isDirty = false
-            return cachedData
         }
-        else{
-            return cachedData
-        }
+        return cachedData
     }
     
-    override fun registData(isbn: String, type: Int): Boolean {
+    override suspend fun registData(isbn: String, type: Int): Boolean {
         var isSuccess = false
-        val books = localRepo.searchData(isbn)
-        Log.i("books",books.id)
         if (localRepo.searchData(isbn).id != "NOTFOUND") {
             return isSuccess
         }
-        lateinit var result:Book
-        return runBlocking {
-            GlobalScope.launch(Dispatchers.IO) {
-                result = remoteRepo.searchData(isbn, type)
-                if (result.id == "ERROR") {
-                    isSuccess = false
-                } else {
-                    GlobalScope.launch(Dispatchers.Main) { localRepo.registData(result) }
-                    isDirty = true
-                    isSuccess = true
-                }
-            }
-            isSuccess
+        val result = remoteRepo.searchData(isbn,0)
+        if (result.id == "ERROR") {
+            isSuccess = false
+        } else {
+            localRepo.registData(result)
+            isDirty = true
+            isSuccess = true
         }
+        return isSuccess
     }
 
     override fun searchData(id: String): Book {

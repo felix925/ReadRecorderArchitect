@@ -1,4 +1,4 @@
-package jp.making.felix.readrecordermvparch.data.Model
+package jp.making.felix.readrecordermvparch.data.Model.Remote
 
 import android.annotation.SuppressLint
 import com.squareup.moshi.Moshi
@@ -11,17 +11,16 @@ import kotlinx.coroutines.*
 import okhttp3.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Singleton
 
-class RemoteBookModel:ModelContract.RemoteData{
-    override suspend fun searchData(isbn: String, type: Int): Book {
-        lateinit var book:Book
-        when(type){
-            0 -> book = searchFromGoogle(isbn)
-            else -> throw Error("BOOK IS UNDEFINED")
+@Singleton
+class RemoteBookModel {
+    suspend fun searchData(isbn: String, type: Int): Book =
+        when(type) {
+            0 -> searchFromGoogle(isbn)
+            else -> Book("UNDEFINED")
         }
-        return book
-    }
-    private suspend fun searchFromGoogle(isbn: String):Book {
+    private suspend fun searchFromGoogle(isbn: String): Book {
         val client = OkHttpClient()
         val request = Request.Builder()
             .url("https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}")
@@ -35,14 +34,22 @@ class RemoteBookModel:ModelContract.RemoteData{
             val bookName = bookData.items[0].volumeInfo.title
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()
-            val updateDate = UpdateDate(getDate())
+            val updateDate =
+                UpdateDate(
+                    getDate()
+                )
+
             Book(
                 UUID.randomUUID().toString(),
                 isbn,
                 bookName,
                 imageURL,
                 RealmList(updateDate),
-                RealmList(Page(0)),
+                RealmList(
+                    Page(
+                        0
+                    )
+                ),
                 maxPage,
                 false
             )

@@ -1,10 +1,15 @@
 package jp.making.felix.readrecordermvparch.BookDataUpdate
 
 import android.util.Log
-import jp.making.felix.readrecordermvparch.data.Model.ModelContract
+import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
-class DataUpdatePresenter (val BookRepository: ModelContract.Repository,
+class DataUpdatePresenter (val BookRepository: BaseRepository,
                            val mView: DataUpdateContract.View): DataUpdateContract.Presenter{
+
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     init {
         mView.presenter = this
     }

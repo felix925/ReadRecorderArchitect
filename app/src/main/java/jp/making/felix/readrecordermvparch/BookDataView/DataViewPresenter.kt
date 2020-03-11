@@ -5,9 +5,13 @@ import jp.making.felix.readrecordermvparch.data.Book
 import jp.making.felix.readrecordermvparch.data.Logs
 import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
 import jp.making.felix.readrecordermvparch.data.Page
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 class DataViewPresenter(val BookRepository: BaseRepository,
                         val mView: DataViewContract.View):DataViewContract.Presenter{
+    override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     init{
         mView.presenter = this
     }
