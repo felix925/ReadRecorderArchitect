@@ -8,7 +8,11 @@ import jp.making.felix.readrecordermvparch.BookListView.ListViewFragment
 import javax.inject.Singleton
 
 @Singleton
-@Component
+@Component(
+    modules = [
+        DataBaseModule::class
+    ]
+)
 interface AppComponent {
     @Component.Factory
     interface Factory{
