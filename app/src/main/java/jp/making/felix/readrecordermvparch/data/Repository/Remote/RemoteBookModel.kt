@@ -20,6 +20,7 @@ class RemoteBookModel {
             0 -> searchFromGoogle(isbn)
             else -> Book("UNDEFINED")
         }
+
     private suspend fun searchFromGoogle(isbn: String): Book {
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -29,11 +30,11 @@ class RemoteBookModel {
         return withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
             val resString = response.body!!.string()
-            val bookData =
-                moshiAdapter.fromJson(resString) ?: throw Error("Book is not Found")
+            val bookData = moshiAdapter.fromJson(resString) ?: throw Error("Book is not Found")
             val bookName = bookData.items[0].volumeInfo.title
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()
+
             val updateDate =
                 UpdateDate(
                     getDate()
