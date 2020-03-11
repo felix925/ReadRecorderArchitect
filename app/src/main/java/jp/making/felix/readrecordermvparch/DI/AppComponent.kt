@@ -10,7 +10,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        DataBaseModule::class
+        DataBaseModule::class,
+        ListViewModule::class
     ]
 )
 interface AppComponent {
