@@ -1,17 +1,35 @@
 package jp.making.felix.readrecordermvparch.DI
 
-//@Module
-//class DataBaseModule {
-//    @Provides
-//    fun provideRepository(): BookRepository{
-//        return BookRepository(provideLocalRepository(),provideRemoteRepository())
-//    }
-//    @Provides
-//    fun provideLocalRepository():LocalBookModel{
-//        return LocalBookModel()
-//    }
-//    @Provides
-//    fun provideRemoteRepository():RemoteBookModel{
-//        return RemoteBookModel()
-//    }
-//}
+import dagger.Binds
+import dagger.BindsInstance
+import dagger.Module
+import dagger.Provides
+import jp.making.felix.readrecordermvparch.BookListView.ListViewContract
+import jp.making.felix.readrecordermvparch.BookListView.ListViewPresenter
+import jp.making.felix.readrecordermvparch.data.Model.BookRepository
+import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
+import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Singleton
+
+@Module
+class DataBaseModule {
+    @Singleton
+    @Provides
+    @Named("bookRepository")
+    fun provideRepository(): BookRepository = BookRepository()
+    @Singleton
+    @Provides
+    fun provideLocalRepository(): LocalBookModel = LocalBookModel()
+    @Singleton
+    @Provides
+    fun provideRemoteRepository(): RemoteBookModel = RemoteBookModel()
+
+    @Singleton
+    @Provides
+    fun provideListViewPresenter(
+        @Named("bookRepository") repository: BookRepository
+    ): ListViewContract.Presenter = ListViewPresenter(repository)
+
+}
