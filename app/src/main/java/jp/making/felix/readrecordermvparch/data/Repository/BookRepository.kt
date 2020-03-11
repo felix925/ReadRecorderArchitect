@@ -3,11 +3,16 @@ package jp.making.felix.readrecordermvparch.data.Repository
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
+import javax.inject.Inject
 
-class BookRepository (private val remoteRepo: RemoteBookModel):BaseRepository{
+class BookRepository @Inject constructor(
+    val remoteRepo: RemoteBookModel,
+    val localRepo: LocalBookModel
+):BaseRepository{
+
     lateinit var cachedData: MutableList<Book>
     var isDirty: Boolean = true
-    private val localRepo:LocalBookModel = LocalBookModel()
+//    private val localRepo:LocalBookModel = LocalBookModel()
 
     override suspend fun deleteData(id: String) {
         localRepo.deleteData(id)
