@@ -5,7 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
-interface BasePresenter : CoroutineScope{
+interface BasePresenter<T>: CoroutineScope{
     override val coroutineContext: CoroutineContext
 
     fun start()

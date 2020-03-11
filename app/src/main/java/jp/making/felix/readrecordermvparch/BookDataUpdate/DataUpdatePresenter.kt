@@ -14,7 +14,7 @@ class DataUpdatePresenter (val BookRepository: BaseRepository,
         mView.presenter = this
     }
 
-    override fun registData(id:String,page: String, thought: String) {
+    override fun updateData(id:String,page: String, thought: String) {
         Log.i("update is called", "id = $id  page = $page thought =  $thought")
         if (BookRepository.searchData(id).pages.last()!!.pageData < page.toInt()){
             BookRepository.updateData(id,page,thought)

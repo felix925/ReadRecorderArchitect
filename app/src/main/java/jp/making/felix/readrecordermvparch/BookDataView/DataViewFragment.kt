@@ -15,11 +15,8 @@ import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.R
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
-import jp.making.felix.readrecordermvparch.data.Page
-
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     override lateinit var presenter: DataViewContract.Presenter

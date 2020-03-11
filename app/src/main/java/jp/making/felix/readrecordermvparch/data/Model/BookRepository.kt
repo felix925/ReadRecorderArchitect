@@ -1,12 +1,12 @@
 package jp.making.felix.readrecordermvparch.data.Model
 
-import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
+import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
 
 class BookRepository():BaseRepository{
     private lateinit var cachedData: MutableList<Book>
-    private val localRepo:LocalBookModel = LocalBookModel()
+    private val localRepo: LocalBookModel = LocalBookModel()
     private val remoteRepo:RemoteBookModel = RemoteBookModel()
     private var isDirty: Boolean = true
 

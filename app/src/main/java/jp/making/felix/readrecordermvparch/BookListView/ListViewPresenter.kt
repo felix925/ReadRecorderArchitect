@@ -1,6 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
-import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext

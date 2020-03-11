@@ -1,6 +1,6 @@
 package jp.making.felix.readrecordermvparch.Base
 
-interface BaseFragment {
+interface BaseFragment{
     fun FabAction()
     fun setUpButtonIcon()
 }

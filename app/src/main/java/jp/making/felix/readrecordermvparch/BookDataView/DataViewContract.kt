@@ -1,11 +1,13 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import jp.making.felix.readrecordermvparch.Base.BasePresenter
+import jp.making.felix.readrecordermvparch.BookListView.ListViewContract
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 
 interface DataViewContract {
     interface View{
+        var presenter: Presenter
         fun showProgress()
         fun deleteProgress()
     }

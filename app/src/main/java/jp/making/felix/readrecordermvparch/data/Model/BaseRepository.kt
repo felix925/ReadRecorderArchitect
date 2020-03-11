@@ -1,6 +1,7 @@
 package jp.making.felix.readrecordermvparch.data.Model
 
-import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
+
 
 interface BaseRepository {
     fun getAllData():List<Book>

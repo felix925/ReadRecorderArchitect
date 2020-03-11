@@ -13,8 +13,6 @@ import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
-import jp.making.felix.readrecordermvparch.data.Model.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import kotlinx.android.synthetic.main.book_update_fragment.*
 
 class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
@@ -46,7 +44,7 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
             val page = pageInput.text.toString()
             val thought = thoughtInput.text.toString()
             if(page.isNotEmpty()) {
-                presenter.registData(args.BOOKID, page, thought)
+                presenter.updateData(args.BOOKID, page, thought)
             }
             findNavController().popBackStack()
         }

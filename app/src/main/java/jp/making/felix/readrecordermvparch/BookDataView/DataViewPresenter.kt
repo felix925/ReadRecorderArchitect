@@ -1,10 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import android.util.Log
-import jp.making.felix.readrecordermvparch.data.Book
-import jp.making.felix.readrecordermvparch.data.Logs
+import jp.making.felix.readrecordermvparch.data.BookModel.Logs
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
-import jp.making.felix.readrecordermvparch.data.Page
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext

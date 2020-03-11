@@ -3,10 +3,10 @@ package jp.making.felix.readrecordermvparch.data.Model.Remote
 import android.annotation.SuppressLint
 import com.squareup.moshi.Moshi
 import io.realm.RealmList
-import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import jp.making.felix.readrecordermvparch.data.BookModel.UpdateDate
 import jp.making.felix.readrecordermvparch.data.GoogleBook.GoogleBook
-import jp.making.felix.readrecordermvparch.data.Page
-import jp.making.felix.readrecordermvparch.data.UpdateDate
 import kotlinx.coroutines.*
 import okhttp3.*
 import java.text.SimpleDateFormat

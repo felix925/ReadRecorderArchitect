@@ -1,12 +1,10 @@
 package jp.making.felix.readrecordermvparch.data.Repository
 
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
-import jp.making.felix.readrecordermvparch.data.Repository.Remote.RemoteBookModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-class BookRepository (private val remoteRepo:RemoteBookModel):BaseRepository{
+class BookRepository (private val remoteRepo: RemoteBookModel):BaseRepository{
     lateinit var cachedData: MutableList<Book>
     var isDirty: Boolean = true
     private val localRepo:LocalBookModel = LocalBookModel()
