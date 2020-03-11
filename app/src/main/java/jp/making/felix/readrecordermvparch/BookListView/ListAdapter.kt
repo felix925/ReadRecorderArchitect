@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.squareup.picasso.Picasso
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Book
+import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import kotlinx.android.synthetic.main.book_item.view.*
 
 class ListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
@@ -19,7 +19,7 @@ class ListAdapter(context: Context, val users: List<Book>): BaseAdapter() {
         return users.count()
     }
 
-    override fun getItem(position: Int):Book {
+    override fun getItem(position: Int): Book {
         return users[position]
     }
 

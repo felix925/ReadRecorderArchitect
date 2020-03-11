@@ -10,7 +10,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import jp.making.felix.readrecordermvparch.data.Page
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
 
 class ChartAdapter{
     private var mTypeface = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
@@ -22,7 +22,7 @@ class ChartAdapter{
      * @see setupLineChart
      * @see lineDataWithCount
      */
-    fun setUpChart(lineChart: LineChart, page: Array<Page>,maxPage:Int): LineData {
+    fun setUpChart(lineChart: LineChart, page: Array<Page>, maxPage:Int): LineData {
         setupLineChart(lineChart, maxPage)
         return(lineDataWithCount(page))
     }

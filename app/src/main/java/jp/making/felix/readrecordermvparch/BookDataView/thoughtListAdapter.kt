@@ -1,16 +1,14 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Logs
-import jp.making.felix.readrecordermvparch.data.Page
-import java.util.function.LongFunction
+import jp.making.felix.readrecordermvparch.data.BookModel.Logs
+import jp.making.felix.readrecordermvparch.data.BookModel.Page
 
 class thoughtListAdapter(context: Context, val logs: List<Logs>, val page: List<Page>): BaseAdapter() {
     private val inflater = LayoutInflater.from(context)

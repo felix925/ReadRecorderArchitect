@@ -1,4 +1,4 @@
-package jp.making.felix.readrecordermvparch.data
+package jp.making.felix.readrecordermvparch.data.BookModel
 
 import androidx.room.Entity
 import io.realm.RealmList
@@ -13,10 +13,18 @@ open class Book(
     var isbn: String = "",
     var name: String = "",
     var imageUrl: String = "",
-    var updateDate: RealmList<UpdateDate> = RealmList(UpdateDate("")),
-    var pages: RealmList<Page> = RealmList(Page(0)),
+    var updateDate: RealmList<UpdateDate> = RealmList(
+        UpdateDate("")
+    ),
+    var pages: RealmList<Page> = RealmList(
+        Page(0)
+    ),
     var maxPage:String = "",
     var alreadyRead: Boolean = false,
-    var tag:RealmList<Tag> = RealmList(Tag("ALL")),
-    var readLog: RealmList<Logs> = RealmList(Logs("下のボタンから感想とページを追加しよう"))
+    var tag:RealmList<Tag> = RealmList(
+        Tag("ALL")
+    ),
+    var readLog: RealmList<Logs> = RealmList(
+        Logs("ReadLogs")
+    )
 ):RealmObject(),Serializable

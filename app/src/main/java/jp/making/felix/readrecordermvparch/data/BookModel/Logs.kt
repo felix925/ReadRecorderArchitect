@@ -1,4 +1,4 @@
-package jp.making.felix.readrecordermvparch.data
+package jp.making.felix.readrecordermvparch.data.BookModel
 
 import io.realm.RealmObject
 
