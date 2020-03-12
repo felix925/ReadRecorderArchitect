@@ -32,8 +32,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
-
-        ListViewPresenter(BookRepository())
         presenter.attachView(this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
             fab = it

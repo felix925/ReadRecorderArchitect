@@ -10,35 +10,34 @@ import kotlin.coroutines.CoroutineContext
 private data class ErrorMessage(val message:String)
 
 @FragmentScope
-class DataRegistPresenter(val BookRepository: BaseRepository,
-                          val mView: DataRegistContract.View): DataRegistContract.Presenter{
+class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContract.Presenter{
+    private var mView: DataRegistContract.View? = null
     private val ValidateError = ErrorMessage("正しい情報を入力してください")
     private val NotFoundError = ErrorMessage("本がすでに登録されているか、見つかりませんでした")
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-    init{
-        mView.presenter = this
+    override fun attachView(view: DataRegistContract.View) {
+        mView= view
     }
-
     override fun start() {
-        mView.showProgress()
-        mView.deleteProgress()
+        mView?.showProgress()
+        mView?.deleteProgress()
     }
 
     override fun registData(isbn: String):Boolean{
         if (isbn.isEmpty()){
-            mView.showEditError("ISBNを入力してください")
+            mView?.showEditError("ISBNを入力してください")
         }
         if(validationCheck(isbn)) {
 //            val flag = BookRepository.registData(isbn,0)
             val flag = false
             if(!flag){
-                mView.showToast(NotFoundError.message)
+                mView?.showToast(NotFoundError.message)
                 return false
             }
             return flag
         }
         else{
-            mView.showToast(ValidateError.message)
+            mView?.showToast(ValidateError.message)
             return false
          }
     }

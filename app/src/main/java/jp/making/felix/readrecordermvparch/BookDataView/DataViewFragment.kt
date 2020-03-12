@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,24 +15,33 @@ import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
+import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
+import javax.inject.Inject
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
-    override lateinit var presenter: DataViewContract.Presenter
+    @Inject
+    lateinit var presenter: DataViewContract.Presenter
     val args:DataViewFragmentArgs by navArgs()
     lateinit var chart:LineChart
     lateinit var list:ListView
+
+    override fun onAttach(context: Context) {
+        (activity!!.application as App).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
-        DataViewPresenter(BookRepository(),this)
         chart = view.findViewById(R.id.pagechart)
         list = view.findViewById(R.id.thoughtList)
+        presenter.attachView(this)
         // Bundleを取得する
         presenter.getBookId(args.BOOKID).let {
             SetUpChart(it,chart)

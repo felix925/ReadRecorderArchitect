@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         DataBaseModule::class,
-        ListViewModule::class
+        PresenterModule::class
     ]
 )
 interface AppComponent {
@@ -19,5 +19,8 @@ interface AppComponent {
     interface Factory{
         fun create():AppComponent
     }
-    fun inject(fragment:ListViewFragment):ListViewFragment
+    fun inject(fragment: ListViewFragment): ListViewFragment
+    fun inject(fragment: DataViewFragment): DataViewFragment
+    fun inject(fragment: DataRegistFragment): DataRegistFragment
+    fun inject(fragment: DataUpdateFragment): DataUpdateFragment
 }
