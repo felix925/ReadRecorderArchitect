@@ -7,7 +7,6 @@ import jp.making.felix.readrecordermvparch.data.BookModel.Page
 
 interface DataViewContract {
     interface View{
-        var presenter: Presenter
         fun showProgress()
         fun deleteProgress()
     }
@@ -15,5 +14,6 @@ interface DataViewContract {
         fun getPageData(id: String): Pair<Array<Page>, Int>
         fun getThoughtData(id: String): Array<Logs>
         fun getBookId(id: String):String
+        fun attachView(view: View)
     }
 }

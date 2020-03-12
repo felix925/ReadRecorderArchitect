@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +12,27 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
+import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.Model.BookRepository
+import javax.inject.Inject
 
 class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
-    override lateinit var presenter: DataRegistContract.Presenter
+    @Inject
+    lateinit var presenter: DataRegistContract.Presenter
+
+    override fun onAttach(context: Context) {
+        (activity!!.application as App).appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        presenter.attachView(this)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-        DataRegistPresenter(BookRepository(),this)
         activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             FabAction()
         }

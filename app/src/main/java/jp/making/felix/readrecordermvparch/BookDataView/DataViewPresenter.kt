@@ -1,6 +1,7 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
 import android.util.Log
+import jp.making.felix.readrecordermvparch.BookListView.ListViewContract
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
@@ -8,16 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
-class DataViewPresenter(val BookRepository: BaseRepository,
-                        val mView: DataViewContract.View):DataViewContract.Presenter{
+class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Presenter{
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-    init{
-        mView.presenter = this
+    private var mView:DataViewContract.View? = null
+    override fun attachView(view: DataViewContract.View) {
+        mView = view
     }
-
     override fun start(){
-        mView.showProgress()
-        mView.deleteProgress()
+        mView?.showProgress()
+        mView?.deleteProgress()
     }
     override fun getPageData(id: String): Pair<Array<Page>, Int> {
         val books = BookRepository.searchData(id)
