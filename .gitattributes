@@ -1,0 +1,8 @@
+  
+*        text=auto
+*.txt    text
+*.kt     text eol=lf
+*.xml    text eol=lf
+*.png    -text
+*.jpg    -text
+*.gradle text eol=lf
