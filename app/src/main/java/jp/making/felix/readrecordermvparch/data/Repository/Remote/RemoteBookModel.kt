@@ -34,7 +34,6 @@ class RemoteBookModel {
             val bookName = bookData.items[0].volumeInfo.title
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()
-
             val updateDate =
                 UpdateDate(
                     getDate()
