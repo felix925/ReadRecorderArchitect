@@ -28,8 +28,12 @@ class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContrac
             mView?.showEditError("ISBNを入力してください")
         }
         if(validationCheck(isbn)) {
-//            val flag = BookRepository.registData(isbn,0)
-            val flag = false
+            var flag = false
+            launch {
+                runCatching {
+                    flag = BookRepository.registData(isbn,0)
+                }
+            }
             if(!flag){
                 mView?.showToast(NotFoundError.message)
                 return false
