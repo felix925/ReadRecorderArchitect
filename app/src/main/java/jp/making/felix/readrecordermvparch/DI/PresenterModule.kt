@@ -10,7 +10,7 @@ import jp.making.felix.readrecordermvparch.BookDataView.DataViewContract
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewPresenter
 import jp.making.felix.readrecordermvparch.BookListView.ListViewContract
 import jp.making.felix.readrecordermvparch.BookListView.ListViewPresenter
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.BookRepository
 
 @Module
 class PresenterModule {
