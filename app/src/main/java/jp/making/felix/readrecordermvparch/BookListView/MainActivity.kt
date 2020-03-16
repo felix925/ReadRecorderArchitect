@@ -13,7 +13,7 @@ import jp.making.felix.readrecordermvparch.DI.AppComponent
 import jp.making.felix.readrecordermvparch.DI.DaggerAppComponent
 
 
-class ListViewActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     lateinit var appComponent: AppComponent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
