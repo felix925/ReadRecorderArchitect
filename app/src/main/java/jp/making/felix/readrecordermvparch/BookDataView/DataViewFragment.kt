@@ -18,7 +18,6 @@ import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import javax.inject.Inject
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {

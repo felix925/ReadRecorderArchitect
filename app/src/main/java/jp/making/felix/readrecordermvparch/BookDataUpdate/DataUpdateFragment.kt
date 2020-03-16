@@ -14,7 +14,6 @@ import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
 import kotlinx.android.synthetic.main.book_update_fragment.*
 import javax.inject.Inject
 
