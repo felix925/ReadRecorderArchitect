@@ -25,5 +25,8 @@ class DataBaseModule {
 
     @Singleton
     @Provides
-    fun provideRepository(): BookRepository = BookRepository()
+    fun provideRepository(
+        localRepo:LocalBookModel,
+        remoteRepo:RemoteBookModel
+    ): BookRepository = BookRepository(localRepo,remoteRepo)
 }
