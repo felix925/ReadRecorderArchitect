@@ -4,32 +4,37 @@
     android:layout_height="match_parent"
     android:padding="3sp">
 
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:padding="5sp"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:contentDescription="TODO" />
 
-    <TextView
-        android:id="@+id/name"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/thumbnail"
-        android:layout_alignStart="@+id/thumbnail"
-        android:layout_alignEnd="@+id/thumbnail"
-        android:textColor="#000"
-        android:textSize="13sp"
-        android:textStyle="bold" />
+        >
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="TODO" />
 
-    <TextView
-        android:id="@+id/comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_alignEnd="@+id/name"
-        android:padding="5sp"
-        android:textColor="#000"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thumbnail"
+            android:layout_alignStart="@+id/thumbnail"
+            android:layout_alignEnd="@+id/thumbnail"
+            android:textColor="#000"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_alignStart="@+id/name"
+            android:layout_alignEnd="@+id/name"
+            android:padding="5sp"
+            android:textColor="#000"
+            android:textSize="15sp" />
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
