@@ -1,14 +1,13 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
-import jp.making.felix.readrecordermvparch.data.Model.BaseRepository
-import jp.making.felix.readrecordermvparch.data.Model.BookRepository
+import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class ListViewPresenter @Inject constructor(
-    val BookRepository:BookRepository
+    val BookRepository: BaseRepository
 ):ListViewContract.Presenter{
 
     private var mView: ListViewContract.View? = null
@@ -22,14 +21,13 @@ class ListViewPresenter @Inject constructor(
         mView = view
     }
 
-    override fun start(){
+    override fun start():Job = launch {
         mView?.showProgress()
-        mView?.showAllBooks(getAllData())
+        mView?.showAllBooks(getAllData().await())
         mView?.deleteProgress()
     }
 
-    fun getAllData():List<Book>{
-        return BookRepository.getAllData().toList()
+    fun getAllData():Deferred<List<Book>> = async {
+        return@async BookRepository.getAllData()
     }
-
 }
