@@ -17,9 +17,11 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         mView = view
     }
 
-    override fun start():Job = launch {
-        mView?.showProgress()
-        mView?.deleteProgress()
+    override fun start(){
+        launch {
+            mView?.showProgress()
+            mView?.deleteProgress()
+        }
     }
 
     override fun getPageData(id: String): Pair<Array<Page>, Int> {

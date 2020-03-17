@@ -25,8 +25,10 @@ class DataUpdatePresenter (val BookRepository: BaseRepository): DataUpdateContra
         }
     }
 
-    override fun start():Job = launch {
-        mView?.showProgress()
-        mView?.deleteProgress()
+    override fun start(){
+        launch {
+            mView?.showProgress()
+            mView?.deleteProgress()
+        }
     }
 }
