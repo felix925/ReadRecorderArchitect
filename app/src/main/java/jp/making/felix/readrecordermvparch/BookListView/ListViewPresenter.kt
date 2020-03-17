@@ -13,18 +13,16 @@ class ListViewPresenter @Inject constructor(
     private var mView: ListViewContract.View? = null
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
 
-//    init{
-//        mView?.presenter = this
-//    }
-
     override fun attachView(view:ListViewContract.View){
         mView = view
     }
 
-    override fun start():Job = launch {
-        mView?.showProgress()
-        mView?.showAllBooks(getAllData().await())
-        mView?.deleteProgress()
+    override fun start(){
+        launch {
+            mView?.showProgress()
+            mView?.showAllBooks(getAllData().await())
+            mView?.deleteProgress()
+        }
     }
 
     fun getAllData():Deferred<List<Book>> = async {

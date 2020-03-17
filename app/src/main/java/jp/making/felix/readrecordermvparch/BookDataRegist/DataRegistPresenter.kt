@@ -18,9 +18,11 @@ class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContrac
     override fun attachView(view: DataRegistContract.View) {
         mView= view
     }
-    override fun start():Job = launch {
-        mView?.showProgress()
-        mView?.deleteProgress()
+    override fun start(){
+        launch {
+            mView?.showProgress()
+            mView?.deleteProgress()
+        }
     }
 
     override fun registData(isbn: String):Boolean{

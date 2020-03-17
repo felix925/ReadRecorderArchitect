@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
 interface BasePresenter<T>: CoroutineScope{
     override val coroutineContext: CoroutineContext
 
-    fun start(): Job
+    fun start()
 
     @CallSuper
     fun dropView(){
