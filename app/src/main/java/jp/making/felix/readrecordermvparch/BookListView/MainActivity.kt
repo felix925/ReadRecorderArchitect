@@ -23,14 +23,14 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
         appComponent = DaggerAppComponent.create()
-        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+//        mainBinding = ActivityMainBinding.inflate(layoutInflater)
         val fragment = ListViewFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.nav_host_fragment,fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
-//    //TODO こやつらはここで定義してあげていいのか考える
+    //TODO こやつらはここで定義してあげていいのか考える
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
 //        // Inflate the menu; this adds items to the action bar if it is present.
 //        menuInflater.inflate(R.menu.menu_main, menu)

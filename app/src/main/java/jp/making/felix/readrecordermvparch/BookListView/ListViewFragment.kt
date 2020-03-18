@@ -39,6 +39,9 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 //            (activity as MainActivity).mainBinding.fab.setOnClickListener{
 //                FabAction()
 //            }
+            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+                FabAction()
+            }
         }
         return view
     }
@@ -57,10 +60,9 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.i("pause is called", context.toString())
-
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dropView()
     }
 
     /**

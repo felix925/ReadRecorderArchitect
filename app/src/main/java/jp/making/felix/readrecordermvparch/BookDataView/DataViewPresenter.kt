@@ -55,4 +55,8 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         }
         return books[id.toInt()].id
     }
+
+    override fun dropView() {
+        super.dropView()
+    }
 }

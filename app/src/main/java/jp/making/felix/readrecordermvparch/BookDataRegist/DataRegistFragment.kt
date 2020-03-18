@@ -77,5 +77,10 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     private fun deleteEditError(){
         activity?.findViewById<EditText>(R.id.editText)?.error = null
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dropView()
+    }
 }
 

@@ -104,4 +104,9 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         dialog.setMessage(thought)
         dialog.show()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dropView()
+    }
 }
