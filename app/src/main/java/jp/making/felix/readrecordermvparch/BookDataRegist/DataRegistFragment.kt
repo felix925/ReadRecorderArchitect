@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
+import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import javax.inject.Inject
@@ -32,11 +33,11 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     ): View? {
         presenter.attachView(this)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
-            FabAction()
+        activity?.let {
+            (activity as MainActivity).mainBinding.fab.setOnClickListener{
+                FabAction()
+            }
         }
-
-
         return view
     }
 

@@ -16,6 +16,7 @@ import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
+//import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
 import kotlinx.android.synthetic.main.book_list_fragment.*
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     @Inject lateinit var presenter:ListViewContract.Presenter
     lateinit var fab:FloatingActionButton
+//    private lateinit var binding:BookListFragmentBinding
 
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
@@ -31,12 +33,12 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
+//        binding = BookListFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
-            fab = it
-        }
-        fab.setOnClickListener {
-            FabAction()
+        activity?.let {
+//            (activity as MainActivity).mainBinding.fab.setOnClickListener{
+//                FabAction()
+//            }
         }
         return view
     }
@@ -104,7 +106,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * FAB（フロートアクションボタン）のアイコンの画像を設定する
      * */
     override fun setUpButtonIcon(){
-        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
+//        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
     }
     /**
      * FABを押された際の画面遷移を行う

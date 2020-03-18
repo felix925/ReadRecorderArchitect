@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
+import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
@@ -46,8 +47,8 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
             SetUpChart(it,chart)
             SetUpThoughtList(it,list)
         }
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
-            it.setOnClickListener {
+        activity?.let {
+            (activity as MainActivity).mainBinding.fab.setOnClickListener{
                 FabAction()
             }
         }

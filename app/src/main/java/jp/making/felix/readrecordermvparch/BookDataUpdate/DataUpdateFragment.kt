@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
+import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import kotlinx.android.synthetic.main.book_update_fragment.*
@@ -34,8 +35,8 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
     ): View? {
         presenter.attachView(this)
         val view = inflater.inflate(R.layout.book_update_fragment,container,false)
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
-            it.setOnClickListener {
+        activity?.let {
+            (activity as MainActivity).mainBinding.fab.setOnClickListener{
                 FabAction()
             }
         }
