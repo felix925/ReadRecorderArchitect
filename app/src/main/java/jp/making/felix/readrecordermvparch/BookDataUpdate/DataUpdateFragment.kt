@@ -36,8 +36,10 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
         presenter.attachView(this)
         val view = inflater.inflate(R.layout.book_update_fragment,container,false)
         activity?.let {
-            (activity as MainActivity).mainBinding.fab.setOnClickListener{
-                FabAction()
+            activity?.let {
+                it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
+                    FabAction()
+                }
             }
         }
         return view

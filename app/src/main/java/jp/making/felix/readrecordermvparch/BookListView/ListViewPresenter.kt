@@ -20,12 +20,10 @@ class ListViewPresenter @Inject constructor(
     override fun start(){
         launch {
             mView?.showProgress()
-            mView?.showAllBooks(getAllData().await())
+            mView?.showAllBooks(getAllData())
             mView?.deleteProgress()
         }
     }
 
-    fun getAllData():Deferred<List<Book>> = async {
-        return@async BookRepository.getAllData()
-    }
+    suspend fun getAllData():List<Book> = BookRepository.getAllData()
 }

@@ -24,7 +24,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     @Inject lateinit var presenter:ListViewContract.Presenter
     lateinit var fab:FloatingActionButton
-//    private lateinit var binding:BookListFragmentBinding
 
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
@@ -33,13 +32,10 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
-//        binding = BookListFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
         activity?.let {
-//            (activity as MainActivity).mainBinding.fab.setOnClickListener{
-//                FabAction()
-//            }
-            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            fab = it.findViewById<FloatingActionButton>(R.id.fab)
+            fab.setOnClickListener {
                 FabAction()
             }
         }
@@ -108,7 +104,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * FAB（フロートアクションボタン）のアイコンの画像を設定する
      * */
     override fun setUpButtonIcon(){
-//        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
+        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
     }
     /**
      * FABを押された際の画面遷移を行う

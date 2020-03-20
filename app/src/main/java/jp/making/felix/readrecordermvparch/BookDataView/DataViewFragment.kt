@@ -48,8 +48,10 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
             SetUpThoughtList(it,list)
         }
         activity?.let {
-            (activity as MainActivity).mainBinding.fab.setOnClickListener{
-                FabAction()
+            activity?.let {
+                it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
+                    FabAction()
+                }
             }
         }
         return view

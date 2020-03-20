@@ -16,7 +16,7 @@ import jp.making.felix.readrecordermvparch.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var appComponent: AppComponent
-    lateinit var mainBinding:ActivityMainBinding
+//    lateinit var mainBinding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

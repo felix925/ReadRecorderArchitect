@@ -24,7 +24,7 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         }
     }
 
-    override fun getPageData(id: String): Pair<Array<Page>, Int> {
+    override suspend fun getPageData(id: String): Pair<Array<Page>, Int> {
         lateinit var books: Book
         launch {
             runCatching {
@@ -36,7 +36,7 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         return Pair(log,maxPage)
     }
 
-    override fun getThoughtData(id: String): Array<Logs> {
+    override suspend fun getThoughtData(id: String): Array<Logs> {
         lateinit var books :Book
         launch {
             runCatching {
@@ -46,7 +46,7 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         return books.readLog.toTypedArray()
     }
 
-    override fun getBookId(id: String):String{
+    override suspend fun getBookId(id: String):String{
         lateinit var books:List<Book>
         launch {
             runCatching {
@@ -54,9 +54,5 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
             }
         }
         return books[id.toInt()].id
-    }
-
-    override fun dropView() {
-        super.dropView()
     }
 }

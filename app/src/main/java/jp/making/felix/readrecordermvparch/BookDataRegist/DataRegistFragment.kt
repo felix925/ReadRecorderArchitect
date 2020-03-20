@@ -34,7 +34,7 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         presenter.attachView(this)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
         activity?.let {
-            (activity as MainActivity).mainBinding.fab.setOnClickListener{
+            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
                 FabAction()
             }
         }
