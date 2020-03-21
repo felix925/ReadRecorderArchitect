@@ -6,6 +6,7 @@ import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -24,35 +25,42 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         }
     }
 
-    override suspend fun getPageData(id: String): Pair<Array<Page>, Int> {
+    override fun getPageData(id: String): Pair<Array<Page>, Int> {
         lateinit var books: Book
         launch {
-            runCatching {
-                books = BookRepository.searchData(id)
-            }
+            books = getBookById(id)
         }
         val log = books.pages.toTypedArray()
         val maxPage = books.maxPage.toInt()
         return Pair(log,maxPage)
     }
 
-    override suspend fun getThoughtData(id: String): Array<Logs> {
+    override fun getThoughtData(id: String): Array<Logs> {
         lateinit var books :Book
         launch {
-            runCatching {
-                books = BookRepository.searchData(id)
-            }
+            books = getBookById(id)
         }
         return books.readLog.toTypedArray()
     }
 
-    override suspend fun getBookId(id: String):String{
+    override fun getBookId(id: String):String{
         lateinit var books:List<Book>
         launch {
             runCatching {
-                books = BookRepository.getAllData()
+                books = getBookAll()
             }
         }
         return books[id.toInt()].id
+    }
+
+    private suspend fun getBookById(id:String): Book{
+        return async {
+            BookRepository.searchData(id)
+        }.await()
+    }
+    private suspend fun getBookAll(): List<Book>{
+        return async {
+            BookRepository.getAllData()
+        }.await()
     }
 }
