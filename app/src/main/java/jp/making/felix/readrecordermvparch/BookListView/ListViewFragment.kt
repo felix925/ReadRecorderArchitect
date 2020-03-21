@@ -34,7 +34,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
         presenter.attachView(this)
         activity?.let {
-            fab = it.findViewById<FloatingActionButton>(R.id.fab)
+            fab = it.findViewById(R.id.fab)
             fab.setOnClickListener {
                 FabAction()
             }
@@ -50,6 +50,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     override fun onResume() {
         super.onResume()
+        presenter.attachView(this)
         presenter.start()
         context?.apply{
             BookList.isVisible = true

@@ -11,9 +11,9 @@ interface DataViewContract {
         fun deleteProgress()
     }
     interface Presenter: BasePresenter<View>{
-        suspend fun getPageData(id: String): Pair<Array<Page>, Int>
-        suspend fun getThoughtData(id: String): Array<Logs>
-        suspend fun getBookId(id: String):String
+        fun getPageData(id: String): Pair<Array<Page>, Int>
+        fun getThoughtData(id: String): Array<Logs>
+        fun getBookId(id: String):String
         fun attachView(view: View)
     }
 }

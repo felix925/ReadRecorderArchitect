@@ -17,13 +17,16 @@ class ListViewPresenter @Inject constructor(
         mView = view
     }
 
-    override fun start(){
+    override fun start() {
         launch {
             mView?.showProgress()
-            mView?.showAllBooks(getAllData())
+            mView?.showAllBooks(BookRepository.getAllData())
             mView?.deleteProgress()
         }
     }
 
-    suspend fun getAllData():List<Book> = BookRepository.getAllData()
+    override fun dropView() {
+        super.dropView()
+        mView = null
+    }
 }

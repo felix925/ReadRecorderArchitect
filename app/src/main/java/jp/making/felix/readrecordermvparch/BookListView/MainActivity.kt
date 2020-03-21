@@ -16,14 +16,12 @@ import jp.making.felix.readrecordermvparch.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var appComponent: AppComponent
-//    lateinit var mainBinding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
         appComponent = DaggerAppComponent.create()
-//        mainBinding = ActivityMainBinding.inflate(layoutInflater)
         val fragment = ListViewFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.nav_host_fragment,fragment)
