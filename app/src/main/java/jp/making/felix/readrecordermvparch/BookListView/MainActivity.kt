@@ -22,11 +22,11 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
         appComponent = DaggerAppComponent.create()
-        val fragment = ListViewFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.nav_host_fragment,fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+//        val fragment = ListViewFragment()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.add(R.id.nav_host_fragment,fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
     }
     //TODO こやつらはここで定義してあげていいのか考える
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {
