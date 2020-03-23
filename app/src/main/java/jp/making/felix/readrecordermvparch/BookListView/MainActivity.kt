@@ -1,14 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.R
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import jp.making.felix.readrecordermvparch.DI.AppComponent
 import jp.making.felix.readrecordermvparch.DI.DaggerAppComponent
 import jp.making.felix.readrecordermvparch.databinding.ActivityMainBinding
@@ -22,11 +17,11 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(toolbar) //今は必要性を感じていないので外している
         Realm.init(this)
         appComponent = DaggerAppComponent.create()
-        val fragment = ListViewFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.nav_host_fragment,fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+//        val fragment = ListViewFragment()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.add(R.id.nav_host_fragment,fragment)
+//        transaction.addToBackStack(null)
+//        transaction.commit()
     }
     //TODO こやつらはここで定義してあげていいのか考える
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

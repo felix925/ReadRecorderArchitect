@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".BookDataRegist.DataRegistFragment">
+    tools:context=".BookDataRegist.DataRegistFragment"
+    >
     <!-- 以下のTextViewのtextは後々カメラを導入した際に消す可能性があるためStringファイルに値としてもたせていない-->
 
     <TextView
