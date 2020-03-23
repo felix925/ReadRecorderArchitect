@@ -6,7 +6,6 @@ import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -25,42 +24,22 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         }
     }
 
-    override fun getPageData(id: String): Pair<Array<Page>, Int> {
-        lateinit var books: Book
-        launch {
-            books = getBookById(id)
-        }
-        val log = books.pages.toTypedArray()
-        val maxPage = books.maxPage.toInt()
-        return Pair(log,maxPage)
-    }
-
-    override fun getThoughtData(id: String): Array<Logs> {
-        lateinit var books :Book
-        launch {
-            books = getBookById(id)
-        }
-        return books.readLog.toTypedArray()
-    }
-
-    override fun getBookId(id: String):String{
-        lateinit var books:List<Book>
+    override fun navigateTrigger(id: String){
         launch {
             runCatching {
-                books = getBookAll()
+                BookRepository.searchData(id)
             }
+                .onSuccess { mView?.navigationTrigger(it.id) }
+                .onFailure {  }
         }
-        return books[id.toInt()].id
     }
 
-    private suspend fun getBookById(id:String): Book{
-        return async {
-            BookRepository.searchData(id)
-        }.await()
-    }
-    private suspend fun getBookAll(): List<Book>{
-        return async {
-            BookRepository.getAllData()
-        }.await()
+    override fun setUpChartAndList(bookId: String) {
+        launch {
+            BookRepository.searchData(bookId).let {
+                mView?.setUpThought(it.id, it.readLog, it.pages)
+                mView?.setUpChart(it.id, Pair(it.pages.toTypedArray(),it.maxPage.toInt()))
+            }
+        }
     }
 }

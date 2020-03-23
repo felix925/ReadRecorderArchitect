@@ -15,18 +15,19 @@ import androidx.navigation.fragment.navArgs
 import com.github.mikephil.charting.charts.LineChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
-import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
+import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import jp.making.felix.readrecordermvparch.databinding.BookDataFragmentBinding
 import javax.inject.Inject
+import kotlin.math.log
 
 class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     @Inject
     lateinit var presenter: DataViewContract.Presenter
     val args:DataViewFragmentArgs by navArgs()
-    lateinit var chart:LineChart
-    lateinit var list:ListView
+    private lateinit var binding:BookDataFragmentBinding
 
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
@@ -39,14 +40,9 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment,container,false)
-        chart = view.findViewById(R.id.pagechart)
-        list = view.findViewById(R.id.thoughtList)
+        binding = BookDataFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
         // Bundleを取得する
-        presenter.getBookId(args.BOOKID).let {
-            SetUpChart(it,chart)
-            SetUpThoughtList(it,list)
-        }
         activity?.let {
             activity?.let {
                 it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
@@ -57,8 +53,26 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         return view
     }
 
+    override fun setUpChart(bookId: String, pageData: Pair<Array<Page>, Int>) {
+        val chartAdapt = ChartAdapter()
+        binding.pagechart.data = chartAdapt.setUpChart(binding.pagechart, pageData.first, pageData.second)
+    }
+
+    override fun setUpThought(bookId: String, logList: List<Logs>, pageList: List<Page>) {
+        context?.apply {
+            binding.thoughtList.adapter = thoughtListAdapter(this, logList, pageList)
+            binding.thoughtList.setOnItemClickListener{_, _, _, id ->
+                pressThought(logList[id.toInt()].logData, pageList[id.toInt()].pageData)
+            }
+        }
+    }
+
     override fun FabAction() {
-        val action = DataViewFragmentDirections.actionDataToUpdate(presenter.getBookId(args.BOOKID))
+        presenter.navigateTrigger(args.BOOKID)
+    }
+
+    override fun navigationTrigger(id: String){
+        val action = DataViewFragmentDirections.actionDataToUpdate(id)
         findNavController().navigate(action)
     }
 
@@ -80,24 +94,6 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
     }
 
     override fun setUpButtonIcon() {
-    }
-
-    private fun SetUpChart(position:String,lineChart: LineChart){
-        Log.i("called","setUpChart is called")
-        val chartAdapt = ChartAdapter()
-        val pageData:Pair<Array<Page>,Int> = presenter.getPageData(position)
-        lineChart.data = chartAdapt.setUpChart(lineChart,pageData.first,pageData.second)
-    }
-
-    private fun SetUpThoughtList(position: String,list:ListView){
-        val thought = presenter.getThoughtData(position).toList()
-        val page = presenter.getPageData(position).first.toList()
-        context?.apply {
-            list.adapter = thoughtListAdapter(this,thought,page)
-            list.setOnItemClickListener{_, _, _, id ->
-                pressThought(thought[id.toInt()].logData,page[id.toInt()].pageData)
-            }
-        }
     }
 
     private fun pressThought(thought:String,id:Int){
