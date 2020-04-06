@@ -11,7 +11,7 @@ interface DataRegistContract {
         fun showEditError(text:String)
     }
     interface Presenter: BasePresenter<View>{
-        fun registData(isbn:String):Boolean
+        fun registData(isbn:String)
         fun attachView(view:View)
     }
 }

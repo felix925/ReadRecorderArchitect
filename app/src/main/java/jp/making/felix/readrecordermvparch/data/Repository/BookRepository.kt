@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.data.Repository
 
+import android.util.Log
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
@@ -12,7 +13,6 @@ class BookRepository @Inject constructor(
 
     lateinit var cachedData: MutableList<Book>
     var isDirty: Boolean = true
-//    private val localRepo:LocalBookModel = LocalBookModel()
 
     override suspend fun deleteData(id: String) {
         localRepo.deleteData(id)
@@ -32,12 +32,11 @@ class BookRepository @Inject constructor(
     
     override suspend fun registData(isbn: String, type: Int): Boolean {
         var isSuccess = false
-        val books = localRepo.searchData(isbn)
         if (localRepo.searchData(isbn).id != "NOTFOUND") {
             return isSuccess
         }
-        lateinit var result: Book
-        result = remoteRepo.searchData(isbn, type)
+        var result: Book = remoteRepo.searchData(isbn, type)
+        Log.d("resultData",result.toString())
         if (result.id == "ERROR") {
             isSuccess = false
         } else {
@@ -45,7 +44,6 @@ class BookRepository @Inject constructor(
             isDirty = true
             isSuccess = true
         }
-        //TODO コルーチン内で変数書き換えがあった際に結果を返すのをまつ仕様かを再確認し、それがメインスレッドを待たせるようなことがあれば対策を考えて修正する
         return isSuccess
     }
 

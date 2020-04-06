@@ -15,12 +15,14 @@ import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
+import jp.making.felix.readrecordermvparch.databinding.BookDataFragmentBinding
+import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
 import javax.inject.Inject
 
 class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     @Inject
     lateinit var presenter: DataRegistContract.Presenter
-
+    private lateinit var binding: BookRegistFragmentBinding
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
@@ -32,6 +34,7 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         savedInstanceState: Bundle?
     ): View? {
         presenter.attachView(this)
+        binding = BookRegistFragmentBinding.inflate(layoutInflater)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
         activity?.let {
             it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
