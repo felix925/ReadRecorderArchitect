@@ -47,10 +47,10 @@
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:layout_gravity="bottom"
+        app:navigationIcon="@drawable/filter"
         app:backgroundTint="#424242"
         app:fabCradleRoundedCornerRadius="36dp"
         app:hideOnScroll="true"/>
-    <!--        app:navigationIcon="@drawable/filter"-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

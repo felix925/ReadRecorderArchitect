@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
+import android.util.Log
 import jp.making.felix.readrecordermvparch.DI.FragmentScope
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,7 @@ class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContrac
     private var mView: DataRegistContract.View? = null
     private val ValidateError = ErrorMessage("正しい情報を入力してください")
     private val NotFoundError = ErrorMessage("本がすでに登録されているか、見つかりませんでした")
+    private val SuccessMessage = "成功しました"
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
     override fun attachView(view: DataRegistContract.View) {
         mView= view
@@ -25,27 +27,20 @@ class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContrac
         }
     }
 
-    override fun registData(isbn: String):Boolean{
+    override fun registData(isbn: String){
         if (isbn.isEmpty()){
             mView?.showEditError("ISBNを入力してください")
         }
         if(validationCheck(isbn)) {
-            var flag = false
             launch {
                 runCatching {
-                    flag = BookRepository.registData(isbn,0)
+                    BookRepository.registData(isbn,0)
                 }
             }
-            if(!flag){
-                mView?.showToast(NotFoundError.message)
-                return false
-            }
-            return flag
         }
         else{
             mView?.showToast(ValidateError.message)
-            return false
-         }
+        }
     }
     //入力されたISBN番号が正しいのバリデーションチェック
     private fun validationCheck(isbn: String):Boolean {
