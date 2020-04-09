@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".BookListView.MainActivity"
     >
 
@@ -45,8 +46,10 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="?actionBarSize"
         android:layout_gravity="bottom"
+        android:minHeight="?attr/actionBarSize"
+        android:theme = "?attr/actionBarTheme"
         app:navigationIcon="@drawable/filter"
         app:backgroundTint="#424242"
         app:fabCradleRoundedCornerRadius="36dp"
