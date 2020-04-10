@@ -17,9 +17,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
-    viewBinding{
-        enabled = true
-    }
+    dataBinding.enabled = true
     defaultConfig {
         applicationId "jp.making.felix.readrecordermvparch"
         minSdkVersion 23

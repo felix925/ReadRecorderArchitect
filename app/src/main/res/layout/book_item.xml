@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="3sp">
 
 
@@ -13,28 +14,20 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO" />
+            />
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/thumbnail"
-            android:layout_alignStart="@+id/thumbnail"
-            android:layout_alignEnd="@+id/thumbnail"
-            android:textColor="#000"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            />
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
-            android:layout_alignStart="@+id/name"
-            android:layout_alignEnd="@+id/name"
-            android:padding="5sp"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            />
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
