@@ -2,31 +2,24 @@ package jp.making.felix.readrecordermvparch.BookListView
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
-//import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
-import kotlinx.android.synthetic.main.book_list_fragment.*
 import javax.inject.Inject
 
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     @Inject lateinit var presenter:ListViewContract.Presenter
-    private lateinit var binding:BookListFragmentBinding
-    lateinit var fab:FloatingActionButton
-
+    private lateinit var binding: BookListFragmentBinding
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
@@ -36,12 +29,6 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         val view = inflater.inflate(R.layout.book_list_fragment,container,false)
         binding = BookListFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
-        activity?.let {
-            fab = it.findViewById(R.id.fab)
-            fab.setOnClickListener {
-                FabAction()
-            }
-        }
         return view
     }
 
@@ -55,7 +42,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         super.onResume()
         presenter.attachView(this)
         presenter.start()
-        binding.BookList.isVisible = true
+//        binding.BookList.isVisible = true
     }
 
     override fun onDestroy() {
@@ -84,7 +71,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * ここからidを取得してintentに保存してFragment移動をViewでさせる
      * */
     override fun pressBooks(count:Int) {
-        binding.BookList.isVisible = false
+//        binding.BookList.isVisible = false
         val action = ListViewFragmentDirections.actionListToData(count.toString())
         findNavController().navigate(action)
     }
@@ -94,17 +81,17 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * */
     override fun showAllBooks(books: List<Book>) {
         context?.apply {
-            binding.BookList.adapter = ListAdapter(this,books)
-            binding.BookList.setOnItemClickListener{_, _, _, id ->
-                pressBooks(id.toInt())
-            }
+//            binding.BookList.adapter = ListAdapter(this,books)
+//            binding.BookList.setOnItemClickListener{_, _, _, id ->
+//                pressBooks(id.toInt())
+//            }
         }
     }
     /**
      * FAB（フロートアクションボタン）のアイコンの画像を設定する
      * */
     override fun setUpButtonIcon(){
-        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
+//        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
     }
     /**
      * FABを押された際の画面遷移を行う
@@ -112,7 +99,7 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
     
     override fun FabAction() {
         context?.apply {
-            binding.BookList.isVisible = false
+//            binding.BookList.isVisible = false
         }
         findNavController().navigate(R.id.action_list_to_regist)
     }

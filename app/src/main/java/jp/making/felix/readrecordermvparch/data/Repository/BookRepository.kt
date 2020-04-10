@@ -35,7 +35,7 @@ class BookRepository @Inject constructor(
         if (localRepo.searchData(isbn).id != "NOTFOUND") {
             return isSuccess
         }
-        var result: Book = remoteRepo.searchData(isbn, type)
+        var result: Book = remoteRepo.searchData(isbn, 0)
         Log.d("resultData",result.toString())
         if (result.id == "ERROR") {
             isSuccess = false

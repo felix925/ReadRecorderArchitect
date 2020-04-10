@@ -29,7 +29,7 @@ class DataRegistPresenter(val BookRepository: BaseRepository): DataRegistContrac
             mView?.showEditError("ISBNを入力してください")
         }
         if(validationCheck(isbn) && isbn.length == 12) {
-            launch {
+            launch(Dispatchers.IO)  {
                 runCatching {
                     BookRepository.registData(isbn,0)
                 }

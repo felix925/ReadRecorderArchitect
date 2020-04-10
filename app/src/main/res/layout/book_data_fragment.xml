@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".BookDataView.DataViewFragment"
-    >
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+<layout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:background="@color/colorBackground"
+        tools:context=".BookDataView.DataViewFragment"
         >
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/pagechart"
+        <include
+            layout="@layout/content_common"
+            android:id="@+id/common_data"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_weight="1" />
+            android:orientation="vertical"
+            >
 
-        <ListView
-            android:id="@+id/thoughtList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/pagechart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_weight="1" />
+
+            <ListView
+                android:id="@+id/thoughtList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="1" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
