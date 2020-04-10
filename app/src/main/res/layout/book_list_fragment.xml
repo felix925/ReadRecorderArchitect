@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
-        tools:context=".BookListView.ListViewFragment"
-        >
+        tools:context=".BookListView.ListViewFragment">
+
         <include
-            layout="@layout/content_common"
-            android:id="@+id/common_list"/>
+            android:id="@+id/common_list"
+            layout="@layout/content_common" />
+
         <GridView
             android:id="@+id/BookList"
             android:layout_width="match_parent"
@@ -19,9 +20,9 @@
             android:background="@color/colorBackground"
             android:gravity="center"
             android:horizontalSpacing="5sp"
-            android:verticalSpacing="5sp"
             android:numColumns="2"
-            android:stretchMode="columnWidth" />
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5sp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

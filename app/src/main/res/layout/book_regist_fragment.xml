@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        tools:context=".BookDataRegist.DataRegistFragment"
-        >
-        <!-- 以下のTextViewのtextは後々カメラを導入した際に消す可能性があるためStringファイルに値としてもたせていない-->
-        <include
-            layout="@layout/content_common"
-            android:id="@+id/common_regist"/>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".BookDataRegist.DataRegistFragment">
+    <!-- 以下のTextViewのtextは後々カメラを導入した際に消す可能性があるためStringファイルに値としてもたせていない-->
+    <include
+        android:id="@+id/common_regist"
+        layout="@layout/content_common" />
 
-        <TextView
-            android:id="@+id/isbnEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:text="本のISBN番号を入力してください"
-            app:layout_anchorGravity="center" />
+    <TextView
+        android:id="@+id/isbnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:text="本のISBN番号を入力してください"
+        app:layout_anchorGravity="center" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:layout_gravity="center_horizontal|center_vertical"
-            app:layout_anchorGravity="center"
-            tools:ignore="LabelFor" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:inputType="numberSigned"
+        app:layout_anchorGravity="center"
+        tools:ignore="LabelFor" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,6 +18,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
     dataBinding.enabled = true
+    viewBinding.enabled = true
     defaultConfig {
         applicationId "jp.making.felix.readrecordermvparch"
         minSdkVersion 23
