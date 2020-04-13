@@ -33,11 +33,11 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         presenter.attachView(this)
 //        binding = BookRegistFragmentBinding.inflate(layoutInflater)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-        activity?.let {
-            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-                FabAction()
-            }
-        }
+//        activity?.let {
+//            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
+//                FabAction()
+//            }
+//        }
         return view
     }
 
@@ -52,15 +52,9 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     }
 
     override fun deleteProgress() {
-        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
-            it.visibility = ProgressBar.INVISIBLE
-        }
     }
 
     override fun showProgress() {
-        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
-            it.visibility = ProgressBar.VISIBLE
-        }
     }
 
     override fun showToast(text: String) {

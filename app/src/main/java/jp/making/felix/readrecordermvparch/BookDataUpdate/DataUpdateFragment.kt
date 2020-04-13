@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
-import jp.making.felix.readrecordermvparch.BookListView.MainActivity
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import kotlinx.android.synthetic.main.book_update_fragment.*
@@ -34,14 +33,12 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
         savedInstanceState: Bundle?
     ): View? {
         presenter.attachView(this)
-        val view = inflater.inflate(R.layout.book_update_fragment,container,false)
-        activity?.let {
-            activity?.let {
-                it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-                    FabAction()
-                }
-            }
-        }
+        val view = inflater.inflate(R.layout.book_update_fragment, container, false)
+//        activity?.let {
+//            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+//                FabAction()
+//            }
+//        }
         return view
     }
 
@@ -56,7 +53,7 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
         activity?.apply {
             val page = pageInput.text.toString()
             val thought = thoughtInput.text.toString()
-            if(page.isNotEmpty()) {
+            if (page.isNotEmpty()) {
                 presenter.updateData(args.BOOKID, page, thought)
             }
             findNavController().popBackStack()
@@ -65,7 +62,7 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
     }
 
     override fun showToast(text: String) {
-        Toast.makeText(context,text, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

@@ -7,10 +7,6 @@
     android:orientation="vertical"
     tools:context=".BookDataUpdate.DataUpdateFragment">
 
-    <include
-        android:id="@+id/common_update"
-        layout="@layout/content_common" />
-
     <TextView
         android:id="@+id/pagePleaseText"
         android:layout_width="match_parent"

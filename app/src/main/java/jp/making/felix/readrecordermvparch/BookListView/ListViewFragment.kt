@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
@@ -21,14 +18,15 @@ import javax.inject.Inject
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     @Inject lateinit var presenter:ListViewContract.Presenter
-//    private lateinit var binding: BookListFragmentBinding
+    private lateinit var binding: BookListFragmentBinding
     override fun onAttach(context: Context) {
+        binding = BookListFragmentBinding.inflate(layoutInflater)
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
-//        val view = inflater.inflate(R.layout.book_list_fragment,container,false)
+        val view = inflater.inflate(R.layout.book_list_fragment,container,false)
 //        binding = BookListFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
         return view
@@ -58,17 +56,11 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
      * 待機するときのぐるぐる回るやつ（プログレスバー）を表示する
      * */
     override fun showProgress() {
-        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
-            it.visibility = ProgressBar.VISIBLE
-        }
     }
     /**
      *　待機するときのぐるぐる回るやつ（プログレスバー）を非表示にする
      * */
     override fun deleteProgress() {
-        activity?.findViewById<ProgressBar>(R.id.mainProgress)?.let{
-            it.visibility = ProgressBar.INVISIBLE
-        }
     }
     /**
      * リスト上のアイテムがタップされると呼びだされる

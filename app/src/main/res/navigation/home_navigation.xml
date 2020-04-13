@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
     app:startDestination="@id/listViewFragment"
     >
@@ -9,8 +8,7 @@
     <fragment
         android:id="@+id/listViewFragment"
         android:name="jp.making.felix.readrecordermvparch.BookListView.ListViewFragment"
-        android:label="book_list_to_data"
-        tools:layout="@layout/book_list_fragment" >
+        android:label="book_list_to_data">
         <action
             android:id="@+id/action_list_to_data"
             app:destination="@id/dataViewFragment"
@@ -27,7 +25,7 @@
         android:id="@+id/dataViewFragment"
         android:name="jp.making.felix.readrecordermvparch.BookDataView.DataViewFragment"
         android:label="book_data_fragment"
-        tools:layout="@layout/book_data_fragment" >
+        >
         <argument android:name="BOOKID"
             android:defaultValue="default"
             app:argType="string"
@@ -46,7 +44,7 @@
         android:id="@+id/dataRegistFragment"
         android:name="jp.making.felix.readrecordermvparch.BookDataRegist.DataRegistFragment"
         android:label="book_regist_fragment"
-        tools:layout="@layout/book_regist_fragment">
+        >
         <action
             android:id="@+id/action_regist_to_list"
             app:destination="@id/listViewFragment"
@@ -58,7 +56,7 @@
         android:id="@+id/dataUpdateFragment"
         android:name="jp.making.felix.readrecordermvparch.BookDataUpdate.DataUpdateFragment"
         android:label="book_update_fragment"
-        tools:layout="@layout/book_update_fragment">
+        >
         <argument android:name="BOOKID"
             android:defaultValue="default"
             app:argType="string"
