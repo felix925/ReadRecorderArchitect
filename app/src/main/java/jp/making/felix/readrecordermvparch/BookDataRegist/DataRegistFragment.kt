@@ -2,15 +2,13 @@ package jp.making.felix.readrecordermvparch.BookDataRegist
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import jp.making.felix.readrecordermvparch.DI.App
-import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
 import javax.inject.Inject
 
@@ -29,8 +27,13 @@ class DataRegistFragment: Fragment(), DataRegistContract.View {
         savedInstanceState: Bundle?
     ): View? {
         presenter.attachView(this)
-        binding = BookRegistFragmentBinding.inflate(layoutInflater)
-        val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
+        binding = BookRegistFragmentBinding.inflate(inflater, container, false)
+        binding.registButton.setOnClickListener {
+            presenter.registData(binding.registEditText.text.toString())
+        }
+        binding.acceptButton.setOnClickListener {
+            Toast.makeText(context,"accept",Toast.LENGTH_LONG).show()
+        }
         return view
     }
 
@@ -45,10 +48,10 @@ class DataRegistFragment: Fragment(), DataRegistContract.View {
     }
 
     override fun showEditError(text: String) {
-        binding.editText.error = text
+        binding.registEditText.error = text
     }
     private fun deleteEditError(){
-        binding.editText.error = null
+        binding.registEditText.error = null
     }
 
     override fun onDestroy() {

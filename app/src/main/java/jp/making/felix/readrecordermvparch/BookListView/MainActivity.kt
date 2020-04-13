@@ -1,12 +1,9 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupWithNavController
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.DI.AppComponent

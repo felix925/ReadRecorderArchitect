@@ -9,25 +9,28 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.DI.App
-import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
 import javax.inject.Inject
 
-class ListViewFragment : Fragment(),ListViewContract.View {
+class ListViewFragment : Fragment(), ListViewContract.View {
 
-    @Inject lateinit var presenter:ListViewContract.Presenter
+    @Inject
+    lateinit var presenter: ListViewContract.Presenter
     private lateinit var binding: BookListFragmentBinding
     override fun onAttach(context: Context) {
-        binding = BookListFragmentBinding.inflate(layoutInflater)
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
-        val view = inflater.inflate(R.layout.book_list_fragment,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = BookListFragmentBinding.inflate(inflater, container, false)
         presenter.attachView(this)
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,27 +55,30 @@ class ListViewFragment : Fragment(),ListViewContract.View {
      * */
     override fun showProgress() {
     }
+
     /**
      *　待機するときのぐるぐる回るやつ（プログレスバー）を非表示にする
      * */
     override fun deleteProgress() {
     }
+
     /**
      * リスト上のアイテムがタップされると呼びだされる
      * ここからidを取得してintentに保存してFragment移動をViewでさせる
      * */
-    override fun pressBooks(count:Int) {
+    override fun pressBooks(count: Int) {
         val action = ListViewFragmentDirections.actionListToData(count.toString())
         findNavController().navigate(action)
     }
+
     /**
      * リストアダプタと繋げてDaoから取得したデータを渡す
      *
      * */
     override fun showAllBooks(books: List<Book>) {
         context?.apply {
-            binding.BookList.adapter = ListAdapter(this,books)
-            binding.BookList.setOnItemClickListener{_, _, _, id ->
+            binding.BookList.adapter = ListAdapter(this, books)
+            binding.BookList.setOnItemClickListener { _, _, _, id ->
                 pressBooks(id.toInt())
             }
         }
