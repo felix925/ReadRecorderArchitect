@@ -90,9 +90,6 @@ class DataViewFragment: Fragment(), DataViewContract.View, BaseFragment {
         }
     }
 
-    override fun setUpButtonIcon() {
-    }
-
     private fun pressThought(thought:String,id:Int){
         val dialog = AlertDialog.Builder(this.context!!)
         dialog.setTitle(id.toString() + "ページ目の感想")

@@ -17,7 +17,6 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
-    dataBinding.enabled = true
     viewBinding.enabled = true
     defaultConfig {
         applicationId "jp.making.felix.readrecordermvparch"
@@ -36,38 +35,37 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation      fileTree(dir: 'libs', include: ['*.jar'])
-    implementation      "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation      'androidx.appcompat:appcompat:1.1.0'
-    implementation      'androidx.core:core-ktx:1.1.0'
-    implementation      'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation      'com.google.android.material:material:1.0.0'
-    implementation      'com.squareup.picasso:picasso:2.71828'
-    implementation      'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation      'androidx.exifinterface:exifinterface:1.1.0'
-    implementation      'com.squareup.picasso:picasso:2.71828'
-    implementation      "androidx.test.espresso:espresso-idling-resource:3.2.0"
-    implementation      "com.jakewharton.timber:timber:4.7.1"
-    implementation      "androidx.room:room-runtime:2.2.2"
-    implementation      "androidx.annotation:annotation:1.1.0"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "androidx.test.espresso:espresso-idling-resource:3.2.0"
+    implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "androidx.annotation:annotation:1.1.0"
 
-    implementation      "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
-    implementation      'com.squareup.moshi:moshi:1.5.0'
-    implementation      'com.squareup.moshi:moshi-kotlin:1.5.0'
-    kapt                'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
-    implementation      'com.google.firebase:firebase-analytics:17.2.2'
-    implementation      'com.google.firebase:firebase-ml-vision:24.0.1'
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+    implementation 'com.squareup.moshi:moshi:1.5.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.5.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
 
     def navigation_version = "2.2.1"
-    implementation      "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation      "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     def dagger_version = "2.26"
     implementation "com.google.dagger:dagger:$dagger_version"

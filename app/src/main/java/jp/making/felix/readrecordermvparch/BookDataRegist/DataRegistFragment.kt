@@ -67,10 +67,6 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         Toast.makeText(context,text,Toast.LENGTH_LONG).show()
     }
 
-    override fun setUpButtonIcon() {
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setImageDrawable(resources.getDrawable(R.drawable.filter))
-    }
-
     override fun showEditError(text: String) {
         activity?.findViewById<EditText>(R.id.editText)?.error = text
     }

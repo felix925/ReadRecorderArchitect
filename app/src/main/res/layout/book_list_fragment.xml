@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    tools:context=".BookListView.ListViewFragment">
+
+    <include
+        android:id="@+id/common_list"
+        layout="@layout/content_common" />
+
+    <GridView
+        android:id="@+id/BookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        tools:context=".BookListView.ListViewFragment">
+        android:background="@color/colorBackground"
+        android:gravity="center"
+        android:horizontalSpacing="5sp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5sp" />
 
-        <include
-            android:id="@+id/common_list"
-            layout="@layout/content_common" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_gravity="end"
+        android:orientation="vertical" />
 
-        <GridView
-            android:id="@+id/BookList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorBackground"
-            android:gravity="center"
-            android:horizontalSpacing="5sp"
-            android:numColumns="2"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="5sp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="match_parent"
-            android:layout_height="60sp"
-            android:layout_gravity="end"
-            android:orientation="vertical" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
