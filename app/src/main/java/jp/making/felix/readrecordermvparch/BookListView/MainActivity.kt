@@ -1,7 +1,10 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import io.realm.Realm
@@ -26,5 +29,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         Realm.init(this)
         appComponent = DaggerAppComponent.create()
+
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.home -> navController.navigate(R.id.listViewFragment)
+                R.id.regist -> navController.navigate(R.id.dataRegistFragment)
+                R.id.settings -> Toast.makeText(this,"Comming soon",Toast.LENGTH_LONG).show()
+            }
+            true
+        }
     }
 }

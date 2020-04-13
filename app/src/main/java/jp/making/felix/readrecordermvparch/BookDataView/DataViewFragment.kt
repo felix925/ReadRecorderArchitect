@@ -5,24 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
+import jp.making.felix.readrecordermvparch.databinding.BookDataFragmentBinding
 import javax.inject.Inject
 
-class DataViewFragment : Fragment(), DataViewContract.View, BaseFragment {
+class DataViewFragment : Fragment(), DataViewContract.View {
     @Inject
     lateinit var presenter: DataViewContract.Presenter
     val args: DataViewFragmentArgs by navArgs()
-//    private lateinit var binding:BookDataFragmentBinding
+    private lateinit var binding: BookDataFragmentBinding
 
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
@@ -35,34 +33,25 @@ class DataViewFragment : Fragment(), DataViewContract.View, BaseFragment {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.book_data_fragment, container, false)
-//        binding = BookDataFragmentBinding.inflate(layoutInflater)
+        binding = BookDataFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
-        // Bundleを取得する
-//        activity?.let {
-//            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-//                FabAction()
-//            }
-//        }
         return view
     }
 
     override fun setUpChart(bookId: String, pageData: Pair<Array<Page>, Int>) {
         val chartAdapt = ChartAdapter()
-//        binding.pagechart.data = chartAdapt.setUpChart(binding.pagechart, pageData.first, pageData.second)
+        binding.pagechart.data = chartAdapt.setUpChart(binding.pagechart, pageData.first, pageData.second)
     }
 
     override fun setUpThought(bookId: String, logList: List<Logs>, pageList: List<Page>) {
         context?.apply {
-            //            binding.thoughtList.adapter = thoughtListAdapter(this, logList, pageList)
-//            binding.thoughtList.setOnItemClickListener{_, _, _, id ->
-//                pressThought(logList[id.toInt()].logData, pageList[id.toInt()].pageData)
-//            }
+            binding.thoughtList.adapter = thoughtListAdapter(this, logList, pageList)
+            binding.thoughtList.setOnItemClickListener { _, _, _, id ->
+                pressThought(logList[id.toInt()].logData, pageList[id.toInt()].pageData)
+            }
         }
     }
 
-    override fun FabAction() {
-        presenter.navigateTrigger(args.BOOKID)
-    }
 
     override fun navigationTrigger(id: String) {
         val action = DataViewFragmentDirections.actionDataToUpdate(id)

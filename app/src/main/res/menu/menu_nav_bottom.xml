@@ -7,8 +7,11 @@
         android:title="@string/title_home"/>
 
     <item
-        android:id="@+id/search"
+        android:id="@+id/regist"
         android:icon="@drawable/ic_search"
-        android:title="@string/title_search"/>
-
+        android:title="@string/title_regist"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings" />
 </menu>

@@ -2,6 +2,10 @@
     <string name="app_name">ReadRecorderMVPArch</string>
     <string name="action_settings">Settings</string>
     <string name="filter">filter</string>
-    <string name="title_search">Search</string>
+    <string name="title_regist">Regist</string>
     <string name="title_home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="regist">Regist!!</string>
+    <string name="isbn_hint">isbn番号を入力してください！</string>
+    <string name="accept_button_text">この本であってる！</string>
 </resources>

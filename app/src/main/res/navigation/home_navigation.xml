@@ -14,11 +14,6 @@
             app:destination="@id/dataViewFragment"
             app:enterAnim="@anim/upmove"
             app:exitAnim="@anim/upmove"/>
-        <action
-            android:id="@+id/action_list_to_regist"
-            app:destination="@id/dataRegistFragment"
-            app:enterAnim="@anim/upmove"
-            app:exitAnim="@anim/upmove"/>
     </fragment>
 
     <fragment
@@ -45,11 +40,6 @@
         android:name="jp.making.felix.readrecordermvparch.BookDataRegist.DataRegistFragment"
         android:label="book_regist_fragment"
         >
-        <action
-            android:id="@+id/action_regist_to_list"
-            app:destination="@id/listViewFragment"
-            app:enterAnim="@anim/upmove"
-            app:exitAnim="@anim/upmove"/>
     </fragment>
 
     <fragment

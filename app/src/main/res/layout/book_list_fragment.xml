@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     tools:context=".BookListView.ListViewFragment">
-    <include
-        android:id="@+id/list_content"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        layout="@layout/content_common"/>
+
     <GridView
         android:id="@+id/BookList"
         android:layout_width="match_parent"

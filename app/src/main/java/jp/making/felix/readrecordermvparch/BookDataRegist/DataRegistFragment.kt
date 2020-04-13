@@ -6,20 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
+import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
 import javax.inject.Inject
 
-class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
+class DataRegistFragment: Fragment(), DataRegistContract.View {
     @Inject
     lateinit var presenter: DataRegistContract.Presenter
-//    private lateinit var binding: BookRegistFragmentBinding
+    private lateinit var binding: BookRegistFragmentBinding
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
@@ -31,24 +29,9 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
         savedInstanceState: Bundle?
     ): View? {
         presenter.attachView(this)
-//        binding = BookRegistFragmentBinding.inflate(layoutInflater)
+        binding = BookRegistFragmentBinding.inflate(layoutInflater)
         val view = inflater.inflate(R.layout.book_regist_fragment,container,false)
-//        activity?.let {
-//            it.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-//                FabAction()
-//            }
-//        }
         return view
-    }
-
-    override fun FabAction() {
-        activity?.findViewById<EditText>(R.id.editText)?.let{
-            it.error?.apply {
-                deleteEditError()
-            }
-            presenter.registData(it.text.toString())
-            findNavController().popBackStack()
-        }
     }
 
     override fun deleteProgress() {
@@ -62,10 +45,10 @@ class DataRegistFragment: Fragment(), DataRegistContract.View, BaseFragment{
     }
 
     override fun showEditError(text: String) {
-        activity?.findViewById<EditText>(R.id.editText)?.error = text
+        binding.editText.error = text
     }
     private fun deleteEditError(){
-        activity?.findViewById<EditText>(R.id.editText)?.error = null
+        binding.editText.error = null
     }
 
     override fun onDestroy() {

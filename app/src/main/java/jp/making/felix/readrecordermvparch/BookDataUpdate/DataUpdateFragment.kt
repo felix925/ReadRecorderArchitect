@@ -9,15 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.BookDataView.DataViewFragmentArgs
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
 import kotlinx.android.synthetic.main.book_update_fragment.*
 import javax.inject.Inject
 
-class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
+class DataUpdateFragment : Fragment(), DataUpdateContract.View {
     @Inject
     lateinit var presenter: DataUpdateContract.Presenter
     val args: DataViewFragmentArgs by navArgs()
@@ -47,18 +45,6 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View, BaseFragment {
     }
 
     override fun showProgress() {
-    }
-
-    override fun FabAction() {
-        activity?.apply {
-            val page = pageInput.text.toString()
-            val thought = thoughtInput.text.toString()
-            if (page.isNotEmpty()) {
-                presenter.updateData(args.BOOKID, page, thought)
-            }
-            findNavController().popBackStack()
-        }
-
     }
 
     override fun showToast(text: String) {
