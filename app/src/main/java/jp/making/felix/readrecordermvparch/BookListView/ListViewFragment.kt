@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import jp.making.felix.readrecorder.ListAdapter
 import jp.making.felix.readrecordermvparch.Base.BaseFragment
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.R
@@ -19,22 +21,24 @@ import javax.inject.Inject
 class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
 
     @Inject lateinit var presenter:ListViewContract.Presenter
-    private lateinit var binding: BookListFragmentBinding
+//    private lateinit var binding: BookListFragmentBinding
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater,container: ViewGroup?,savedInstanceState: Bundle?): View?{
-        val view = inflater.inflate(R.layout.book_list_fragment,container,false)
-        binding = BookListFragmentBinding.inflate(layoutInflater)
+//        val view = inflater.inflate(R.layout.book_list_fragment,container,false)
+//        binding = BookListFragmentBinding.inflate(layoutInflater)
         presenter.attachView(this)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpButtonIcon()
+//        binding.commonList.fab.setOnClickListener{
+//            FabAction()
+//        }
         presenter.start()
     }
 
@@ -88,19 +92,11 @@ class ListViewFragment : Fragment(),ListViewContract.View,BaseFragment{
         }
     }
     /**
-     * FAB（フロートアクションボタン）のアイコンの画像を設定する
-     * */
-    override fun setUpButtonIcon(){
-//        fab.setImageDrawable(resources.getDrawable(R.drawable.note_add))
-    }
-    /**
      * FABを押された際の画面遷移を行う
      * */
     
     override fun FabAction() {
-        context?.apply {
-//            binding.BookList.isVisible = false
-        }
+//        binding.BookList.isVisible = false
         findNavController().navigate(R.id.action_list_to_regist)
     }
 }
