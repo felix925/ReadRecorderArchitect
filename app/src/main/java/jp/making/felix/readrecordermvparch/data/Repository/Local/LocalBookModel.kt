@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.data.Repository.Local
 
+import android.util.Log
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs

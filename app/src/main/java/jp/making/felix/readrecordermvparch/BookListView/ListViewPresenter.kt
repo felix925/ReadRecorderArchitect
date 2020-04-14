@@ -1,20 +1,22 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
-import io.realm.RealmList
-import jp.making.felix.readrecordermvparch.data.BookModel.*
+import jp.making.felix.readrecordermvparch.DI.FragmentScope
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+@FragmentScope
 class ListViewPresenter @Inject constructor(
-    val BookRepository: BaseRepository
-):ListViewContract.Presenter{
+    private val BookRepository: BaseRepository
+) : ListViewContract.Presenter {
 
     private var mView: ListViewContract.View? = null
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
 
-    override fun attachView(view:ListViewContract.View){
+    override fun attachView(view: ListViewContract.View) {
         mView = view
     }
 

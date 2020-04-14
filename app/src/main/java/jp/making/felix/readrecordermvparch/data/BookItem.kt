@@ -21,5 +21,6 @@ data class BookItem(
         binding.thumbnail.load(book.imageUrl)
         binding.name.text = book.name
         binding.comment.text = book.updateDate[book.updateDate.size - 1]?.pageData
+        binding.pagechart
     }
 }

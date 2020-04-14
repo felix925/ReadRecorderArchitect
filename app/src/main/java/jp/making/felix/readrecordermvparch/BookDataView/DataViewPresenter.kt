@@ -1,36 +1,37 @@
 package jp.making.felix.readrecordermvparch.BookDataView
 
-import jp.making.felix.readrecordermvparch.data.BookModel.Book
-import jp.making.felix.readrecordermvparch.data.BookModel.Logs
-import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Presenter{
+class DataViewPresenter @Inject constructor(
+    val BookRepository: BaseRepository
+) : DataViewContract.Presenter {
+
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-    private var mView:DataViewContract.View? = null
+    private var mView: DataViewContract.View? = null
 
     override fun attachView(view: DataViewContract.View) {
         mView = view
     }
 
-    override fun start(){
+    override fun start() {
         launch {
             mView?.showProgress()
             mView?.deleteProgress()
         }
     }
 
-    override fun navigateTrigger(id: String){
+    override fun navigateTrigger(id: String) {
         launch {
             runCatching {
                 BookRepository.searchData(id)
             }
                 .onSuccess { mView?.navigationTrigger(it.id) }
-                .onFailure {  }
+                .onFailure { }
         }
     }
 
@@ -38,7 +39,7 @@ class DataViewPresenter(val BookRepository: BaseRepository):DataViewContract.Pre
         launch {
             BookRepository.searchData(bookId).let {
                 mView?.setUpThought(it.id, it.readLog, it.pages)
-                mView?.setUpChart(it.id, Pair(it.pages.toTypedArray(),it.maxPage.toInt()))
+                mView?.setUpChart(it.id, Pair(it.pages.toTypedArray(), it.maxPage.toInt()))
             }
         }
     }

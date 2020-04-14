@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/isbn_hint"
         android:inputType="number"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,9 +24,17 @@
         android:layout_gravity="center"
         android:text="@string/regist"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registEditText" />
+
+    <ImageView
+        android:id="@+id/regist_thumbnail"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="Result"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

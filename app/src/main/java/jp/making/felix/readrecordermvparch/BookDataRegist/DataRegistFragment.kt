@@ -1,8 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.api.load
 import jp.making.felix.readrecordermvparch.DI.App
-import jp.making.felix.readrecordermvparch.R
-import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
-import jp.making.felix.readrecordermvparch.databinding.DialogRegistBookBinding
 import javax.inject.Inject
 
 class DataRegistFragment : Fragment(), DataRegistContract.View {
@@ -64,36 +59,10 @@ class DataRegistFragment : Fragment(), DataRegistContract.View {
         presenter.dropView()
     }
 
-    override fun showBook(book: Book) {
+    override fun showBook(thumbnail: String) {
         binding.registButton.isVisible = false
         binding.registEditText.isVisible = false
-        activity?.let {
-            val builder = AlertDialog.Builder(it)
-            val inflater = layoutInflater
-            builder.apply {
-                val dialogBinding = DialogRegistBookBinding.inflate(inflater)
-                setView(dialogBinding.root)
-                dialogBinding.dialogImage.load(book.imageUrl) {
-                    error(R.drawable.ic_settings)
-                }
-                dialogBinding.dialogTitle.text = book.name
-                setPositiveButton(
-                    "これ！",
-                    DialogInterface.OnClickListener { _, _ ->
-                        binding.registButton.isVisible = true
-                        binding.registEditText.isVisible = true
-                        presenter.registBook(book)
-                    }
-                )
-                setNegativeButton(
-                    "ちがう！",
-                    DialogInterface.OnClickListener { _, _ ->
-                        binding.registButton.isVisible = true
-                        binding.registEditText.isVisible = true
-                    })
-            }
-            builder.show()
-        }
+        binding.registThumbnail.load(thumbnail)
     }
 }
 
