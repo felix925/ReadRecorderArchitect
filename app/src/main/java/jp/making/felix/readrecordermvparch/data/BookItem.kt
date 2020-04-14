@@ -1,14 +1,13 @@
 package jp.making.felix.readrecordermvparch.data
 
-import android.view.View
 import coil.api.load
+import com.github.mikephil.charting.charts.LineChart
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import com.xwray.groupie.OnItemClickListener
-import com.xwray.groupie.OnItemLongClickListener
 import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookItemBinding
+import jp.making.felix.readrecordermvparch.util.ChartAdapter
 
 data class BookItem(
     val book: Book
@@ -21,6 +20,13 @@ data class BookItem(
         binding.thumbnail.load(book.imageUrl)
         binding.name.text = book.name
         binding.comment.text = book.updateDate[book.updateDate.size - 1]?.pageData
-        binding.pagechart
+        binding.pagechart.setup(binding, book)
+        viewHolder.itemView.setOnClickListener {
+        }
+    }
+
+    private fun LineChart.setup(binding: BookItemBinding, book: Book) {
+        val adapter = ChartAdapter(binding.pagechart, book)
+        adapter.setup()
     }
 }
