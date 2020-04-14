@@ -4,6 +4,9 @@ import android.util.Log
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Model.Remote.RemoteBookModel
 import jp.making.felix.readrecordermvparch.data.Repository.Local.LocalBookModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.DisposableHandle
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class BookRepository @Inject constructor(
@@ -30,21 +33,12 @@ class BookRepository @Inject constructor(
         }
     }
     
-    override suspend fun registData(isbn: String, type: Int): Boolean {
-        var isSuccess = false
-        if (localRepo.searchData(isbn).id != "NOTFOUND") {
-            return isSuccess
+    override suspend fun searchBook(isbn: String, type: Int): Book {
+        val book = localRepo.searchData(isbn)
+        if (book.id != "NOTFOUND") {
+            return book
         }
-        var result: Book = remoteRepo.searchData(isbn, 0)
-        Log.d("resultData",result.toString())
-        if (result.id == "ERROR") {
-            isSuccess = false
-        } else {
-            localRepo.registData(result)
-            isDirty = true
-            isSuccess = true
-        }
-        return isSuccess
+        return remoteRepo.searchData(isbn, 0)
     }
 
     override suspend fun searchData(id: String): Book {
@@ -55,6 +49,10 @@ class BookRepository @Inject constructor(
         return cachedData.filter { it.id == id }[0]
     }
 
-    override suspend fun updateData(id: String, pageValue: String,thought:String) = localRepo.updateData(id,pageValue,thought)
+    override suspend fun updateData(id: String, pageValue: String,thought:String) =
+        localRepo.updateData(id,pageValue,thought)
 
+    override suspend fun registBook(book: Book) {
+        localRepo.registData(book)
+    }
 }

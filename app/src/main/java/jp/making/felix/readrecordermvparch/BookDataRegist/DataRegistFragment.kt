@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.squareup.picasso.Picasso
 import jp.making.felix.readrecordermvparch.DI.App
 import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
 import javax.inject.Inject
@@ -29,12 +31,13 @@ class DataRegistFragment: Fragment(), DataRegistContract.View {
         presenter.attachView(this)
         binding = BookRegistFragmentBinding.inflate(inflater, container, false)
         binding.registButton.setOnClickListener {
-            presenter.registData(binding.registEditText.text.toString())
+            presenter.searchBook(binding.registEditText.text.toString())
         }
         binding.acceptButton.setOnClickListener {
-            Toast.makeText(context,"accept",Toast.LENGTH_LONG).show()
+            presenter.registBook()
+            it.isVisible = false
         }
-        return view
+        return binding.root
     }
 
     override fun deleteProgress() {
@@ -57,6 +60,14 @@ class DataRegistFragment: Fragment(), DataRegistContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.dropView()
+    }
+
+    override fun showBook(thumbnail: String, title:String) {
+        Picasso.get().load(thumbnail).into(binding.registThumbnail)
+        binding.bookTitle.text = title
+        binding.registButton.isVisible = false
+        binding.acceptButton.isVisible = true
+        binding.registEditText.isVisible = false
     }
 }
 

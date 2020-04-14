@@ -37,7 +37,13 @@
         app:layout_constraintBottom_toTopOf="@id/acceptButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
+.    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/regist_thumbnail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <Button
         android:id="@+id/acceptButton"
         android:layout_width="wrap_content"
@@ -45,7 +51,7 @@
         android:layout_gravity="center"
         android:text="@string/accept_button_text"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/regist_thumbnail"
+        app:layout_constraintBottom_toTopOf="@id/book_title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:visibility="invisible"/>
