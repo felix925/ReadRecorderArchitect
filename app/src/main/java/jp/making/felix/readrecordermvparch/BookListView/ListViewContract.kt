@@ -8,7 +8,7 @@ interface ListViewContract {
         fun showProgress()
         fun deleteProgress()
         fun pressBooks(count:Int)
-        fun showAllBooks(books:List<Book>)
+        fun showBooks(books:List<Book>)
     }
 
     interface Presenter:BasePresenter<View>{

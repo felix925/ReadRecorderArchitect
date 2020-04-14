@@ -1,6 +1,5 @@
 package jp.making.felix.readrecordermvparch.BookDataRegist
 
-import android.util.Log
 import jp.making.felix.readrecordermvparch.DI.FragmentScope
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
@@ -16,7 +15,6 @@ private data class ErrorMessage(val message: String)
 class DataRegistPresenter(val BookRepository: BaseRepository) : DataRegistContract.Presenter {
     private var mView: DataRegistContract.View? = null
     private val ValidateError = ErrorMessage("正しい情報を入力してください")
-    lateinit var result: Book
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
 
     override fun attachView(view: DataRegistContract.View) {
@@ -29,6 +27,7 @@ class DataRegistPresenter(val BookRepository: BaseRepository) : DataRegistContra
     }
 
     override fun searchBook(isbn: String) {
+        lateinit var result: Book
         if (isbn.isEmpty()) {
             mView?.showEditError("ISBNを入力してください")
         }
@@ -37,17 +36,17 @@ class DataRegistPresenter(val BookRepository: BaseRepository) : DataRegistContra
                 async {
                     result = BookRepository.searchBook(isbn, 0)
                 }.await()
-                mView?.showBook(result.imageUrl, result.name)
+                mView?.showBook(result)
             }
         } else {
             mView?.showToast(ValidateError.message)
         }
     }
 
-    override fun registBook() {
-        launch(Dispatchers.IO) {
+    override fun registBook(book: Book) {
+        launch {
             runCatching {
-                BookRepository.registBook(result)
+                BookRepository.registBook(book)
             }
         }
     }

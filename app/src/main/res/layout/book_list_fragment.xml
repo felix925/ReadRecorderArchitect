@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    tools:context=".BookListView.ListViewFragment">
+    tools:context=".BookListView.ListViewFragment"
+    app:backgroundTint="@color/colorBackground">
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/BookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        android:gravity="center"
-        android:horizontalSpacing="5sp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5sp" />
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/book_item"
+        android:background="@color/colorBackground"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_gravity="end"
-        android:orientation="vertical" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

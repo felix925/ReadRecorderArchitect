@@ -2,13 +2,17 @@ package jp.making.felix.readrecordermvparch.BookListView
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import jp.making.felix.readrecorder.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import jp.making.felix.readrecordermvparch.DI.App
+import jp.making.felix.readrecordermvparch.data.BookItem
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
 import javax.inject.Inject
@@ -18,6 +22,15 @@ class ListViewFragment : Fragment(), ListViewContract.View {
     @Inject
     lateinit var presenter: ListViewContract.Presenter
     private lateinit var binding: BookListFragmentBinding
+    private var _articleListAdapter: GroupAdapter<GroupieViewHolder>? = null
+    //いちいちnullチェックするのを避けるために、notnullを作っておいて、nullを入れたいものは直接使わないようにする。
+    private val articleListAdapter get() = requireNotNull(_articleListAdapter)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _articleListAdapter = GroupAdapter()
+    }
+
     override fun onAttach(context: Context) {
         (activity!!.application as App).appComponent.inject(this)
         super.onAttach(context)
@@ -30,6 +43,7 @@ class ListViewFragment : Fragment(), ListViewContract.View {
     ): View? {
         binding = BookListFragmentBinding.inflate(inflater, container, false)
         presenter.attachView(this)
+        binding.BookList.setup()
         return binding.root
     }
 
@@ -42,7 +56,6 @@ class ListViewFragment : Fragment(), ListViewContract.View {
         super.onResume()
         presenter.attachView(this)
         presenter.start()
-//        binding.BookList.isVisible = true
     }
 
     override fun onDestroy() {
@@ -71,16 +84,11 @@ class ListViewFragment : Fragment(), ListViewContract.View {
         findNavController().navigate(action)
     }
 
-    /**
-     * リストアダプタと繋げてDaoから取得したデータを渡す
-     *
-     * */
-    override fun showAllBooks(books: List<Book>) {
-        context?.apply {
-            binding.BookList.adapter = ListAdapter(this, books)
-            binding.BookList.setOnItemClickListener { _, _, _, id ->
-                pressBooks(id.toInt())
-            }
-        }
+    override fun showBooks(books: List<Book>) {
+        articleListAdapter.update(books.map(::BookItem))
+    }
+    //binding.BookList.adapter = articleListAdapterと同義
+    private fun RecyclerView.setup(){
+        adapter = articleListAdapter
     }
 }

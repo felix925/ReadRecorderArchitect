@@ -11,11 +11,12 @@
         android:id="@+id/registEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/isbn_hint"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@id/registButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:hint="@string/isbn_hint"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/registButton"
@@ -24,35 +25,9 @@
         android:layout_gravity="center"
         android:text="@string/regist"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/regist_thumbnail"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <ImageView
-        android:id="@+id/regist_thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="Result"
-        android:minHeight="8dp"
-        app:layout_constraintBottom_toTopOf="@id/acceptButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-.    <TextView
-        android:id="@+id/book_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/regist_thumbnail"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <Button
-        android:id="@+id/acceptButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/accept_button_text"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/book_title"
+        app:layout_constraintHorizontal_bias="0.436"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toBottomOf="@+id/registEditText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

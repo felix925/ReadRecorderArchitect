@@ -1,6 +1,7 @@
 package jp.making.felix.readrecordermvparch.BookListView
 
-import jp.making.felix.readrecordermvparch.data.BookModel.Book
+import io.realm.RealmList
+import jp.making.felix.readrecordermvparch.data.BookModel.*
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class ListViewPresenter @Inject constructor(
     override fun start() {
         launch {
             mView?.showProgress()
-            mView?.showAllBooks(BookRepository.getAllData())
+            mView?.showBooks(BookRepository.getAllData())
             mView?.deleteProgress()
         }
     }

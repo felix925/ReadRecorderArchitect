@@ -53,6 +53,7 @@ class BookRepository @Inject constructor(
         localRepo.updateData(id,pageValue,thought)
 
     override suspend fun registBook(book: Book) {
+        Log.d("call", book.toString())
         localRepo.registData(book)
     }
 }

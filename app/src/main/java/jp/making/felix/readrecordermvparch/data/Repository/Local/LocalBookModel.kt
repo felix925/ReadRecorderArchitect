@@ -19,8 +19,7 @@ class LocalBookModel {
         }
     }
 
-    fun getAllData():List<Book> = myRealm.where(
-        Book::class.java).findAll().toList()
+    fun getAllData():List<Book> = myRealm.where(Book::class.java).findAll().toList()
 
     fun searchData(id: String): Book = myRealm.where(
         Book::class.java).equalTo("isbn",id).findFirst() ?: Book(
