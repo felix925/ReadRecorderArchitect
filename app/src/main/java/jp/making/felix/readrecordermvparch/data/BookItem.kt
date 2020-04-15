@@ -23,7 +23,10 @@ data class BookItem(
         binding.name.text = book.name
         binding.comment.text = book.updateDate[book.updateDate.size - 1]?.pageData
         binding.pagechart.setup(binding, book)
-        viewHolder.itemView.setOnClickListener(clickListener)
+        binding.name.setOnClickListener(clickListener)
+        viewHolder.itemView.setOnClickListener {
+            binding.name.callOnClick()
+        }
     }
 
     private fun LineChart.setup(binding: BookItemBinding, book: Book) {

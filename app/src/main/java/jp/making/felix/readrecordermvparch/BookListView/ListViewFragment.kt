@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -80,14 +81,15 @@ class ListViewFragment : Fragment(), ListViewContract.View {
      * リスト上のアイテムがタップされると呼びだされる
      * ここからidを取得してintentに保存してFragment移動をViewでさせる
      * */
-    override fun pressBooks(count: Int) {
-        val action = ListViewFragmentDirections.actionListToData(count.toString())
+    override fun pressBooks(result: String) {
+        val action = ListViewFragmentDirections.actionListToData(result)
         findNavController().navigate(action)
     }
 
     override fun showBooks(books: List<Book>) {
         val clickListener: (View) -> Unit = {
-            pressBooks(it.id + 1)
+            val result = it as TextView
+            pressBooks(result.text.toString())
         }
         val list = mutableListOf<BookItem>()
         for (i in books) {

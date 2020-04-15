@@ -15,6 +15,7 @@ class ListViewPresenter @Inject constructor(
 
     private var mView: ListViewContract.View? = null
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
+    private var page = 1
 
     override fun attachView(view: ListViewContract.View) {
         mView = view
@@ -24,7 +25,9 @@ class ListViewPresenter @Inject constructor(
         launch {
             mView?.showProgress()
             runCatching { BookRepository.getAllData() }
-                .onSuccess { mView?.showBooks(it) }
+                .onSuccess {
+                    mView?.showBooks(it)
+                }
             mView?.deleteProgress()
         }
     }

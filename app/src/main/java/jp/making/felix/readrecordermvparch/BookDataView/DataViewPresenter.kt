@@ -35,9 +35,9 @@ class DataViewPresenter @Inject constructor(
         }
     }
 
-    override fun setUpChartAndList(bookId: String) {
+    override fun setUpChartAndList(bookName: String) {
         launch {
-            BookRepository.searchDataById(bookId).let {
+            BookRepository.searchDataByName(bookName).let {
                 mView?.setUpThought(it.id, it.readLog, it.pages)
                 mView?.setUpChart(it.id, Pair(it.pages.toTypedArray(), it.maxPage.toInt()))
             }

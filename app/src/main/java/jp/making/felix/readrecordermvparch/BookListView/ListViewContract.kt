@@ -7,7 +7,7 @@ interface ListViewContract {
     interface View{
         fun showProgress()
         fun deleteProgress()
-        fun pressBooks(count:Int)
+        fun pressBooks(result: String)
         fun showBooks(books:List<Book>)
     }
 

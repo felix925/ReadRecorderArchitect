@@ -42,7 +42,7 @@ class BookRepository @Inject constructor(
             isDirty = false
         }
         val searchData = cachedData.filter { it.isbn == isbn }
-        return if(searchData.isEmpty()) Book("NOTFOUND") else searchData[0]
+        return if (searchData.isEmpty()) Book("NOTFOUND") else searchData[0]
     }
 
     override suspend fun searchDataById(id: String): Book {
@@ -51,7 +51,16 @@ class BookRepository @Inject constructor(
             isDirty = false
         }
         val searchData = cachedData.filter { it.id == id }
-        return if(searchData.isEmpty()) Book("NOTFOUND") else searchData[0]
+        return if (searchData.isEmpty()) Book("NOTFOUND") else searchData[0]
+    }
+
+    override suspend fun searchDataByName(name: String): Book {
+        if (isDirty) {
+            this.cachedData = localRepo.getAllData().toMutableList()
+            isDirty = false
+        }
+        val searchData = cachedData.filter { it.name == name }
+        return if (searchData.isEmpty()) Book("NOTFOUND") else searchData[0]
     }
 
     override suspend fun updateData(id: String, pageValue: String, thought: String) =
