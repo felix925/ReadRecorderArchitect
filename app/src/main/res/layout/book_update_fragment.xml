@@ -11,7 +11,7 @@
         android:id="@+id/pagePleaseText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="現在読み終えたページを入力してください" />
+        android:text="@string/help_page_text" />
 
     <EditText
         android:id="@+id/pageInput"
@@ -24,7 +24,7 @@
         android:id="@+id/thoughtPleaseText"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:text="今回読んだ範囲で学びや心に刺さった事を書いて学びを最大化しましょう" />
+        android:text="@string/help_thought_text" />
 
     <EditText
         android:id="@+id/thoughtInput"
@@ -32,4 +32,10 @@
         android:layout_height="192dp"
         android:ems="10"
         android:inputType="text" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_thoughtdata_text" />
 </LinearLayout>

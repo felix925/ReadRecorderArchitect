@@ -11,7 +11,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 
-class ChartAdapter(
+class ChartItemAdapter(
     private val lineChart: LineChart,
     private val book: Book
 ) {
@@ -60,13 +60,11 @@ class ChartAdapter(
 
     private fun makeLineData(pages: List<Page>): List<Entry> {
         val entries = mutableListOf<Entry>()
-        var x = 0
-//        for(i in pages){
-//            entries.add(Entry(if(x==0) 0f else entries[x].x+1f,i.pageData.toFloat()))
-//            x++
-//        }
-        entries.add(Entry(0f, 0f))
-        entries.add(Entry(1f, 1f))
+        var x = 0f
+        for (i in pages) {
+            entries.add(Entry(x, i.pageData.toFloat()))
+            x++
+        }
         return entries
     }
 }

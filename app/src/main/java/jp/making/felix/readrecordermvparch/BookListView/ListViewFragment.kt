@@ -55,6 +55,7 @@ class ListViewFragment : Fragment(), ListViewContract.View {
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
+        binding.BookList.setup()
         presenter.start()
     }
 
@@ -85,10 +86,18 @@ class ListViewFragment : Fragment(), ListViewContract.View {
     }
 
     override fun showBooks(books: List<Book>) {
-        articleListAdapter.update(books.map(::BookItem))
+        val clickListener: (View) -> Unit = {
+            pressBooks(it.id + 1)
+        }
+        val list = mutableListOf<BookItem>()
+        for (i in books) {
+            list.add(list.size, BookItem(i,clickListener))
+        }
+        articleListAdapter.update(list)
     }
+
     //binding.BookList.adapter = articleListAdapterと同義
-    private fun RecyclerView.setup(){
+    private fun RecyclerView.setup() {
         adapter = articleListAdapter
     }
 }

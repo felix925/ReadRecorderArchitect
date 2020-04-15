@@ -28,7 +28,7 @@ class DataViewPresenter @Inject constructor(
     override fun navigateTrigger(id: String) {
         launch {
             runCatching {
-                BookRepository.searchData(id)
+                BookRepository.searchDataById(id)
             }
                 .onSuccess { mView?.navigationTrigger(it.id) }
                 .onFailure { }
@@ -37,7 +37,7 @@ class DataViewPresenter @Inject constructor(
 
     override fun setUpChartAndList(bookId: String) {
         launch {
-            BookRepository.searchData(bookId).let {
+            BookRepository.searchDataById(bookId).let {
                 mView?.setUpThought(it.id, it.readLog, it.pages)
                 mView?.setUpChart(it.id, Pair(it.pages.toTypedArray(), it.maxPage.toInt()))
             }

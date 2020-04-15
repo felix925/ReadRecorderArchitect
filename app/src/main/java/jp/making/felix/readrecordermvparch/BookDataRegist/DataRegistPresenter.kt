@@ -53,4 +53,9 @@ class DataRegistPresenter @Inject constructor(
         val regex = Regex(pattern = "[0-9]+")
         return regex.matches(isbn)
     }
+
+    override fun dropView() {
+        super.dropView()
+        mView = null
+    }
 }

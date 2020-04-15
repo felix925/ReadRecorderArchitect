@@ -1,37 +1,38 @@
 package jp.making.felix.readrecordermvparch.data.Repository.Local
 
-import android.util.Log
 import io.realm.Realm
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.data.BookModel.UpdateDate
-import java.util.*
 import java.text.SimpleDateFormat
+import java.util.*
 
 class LocalBookModel {
-    private companion object realm{
-         val myRealm:Realm = Realm.getDefaultInstance()
+    private companion object realm {
+        val myRealm: Realm = Realm.getDefaultInstance()
     }
+
     fun deleteData(id: String) {
         myRealm.executeTransaction {
-            it.where(Book::class.java).equalTo("id",id)
+            it.where(Book::class.java).equalTo("id", id)
                 .findFirst()?.deleteFromRealm()
         }
     }
 
-    fun getAllData():List<Book> = myRealm.where(Book::class.java).findAll().toList()
+    fun getAllData(): List<Book> = myRealm.where(Book::class.java).findAll().toList()
 
     fun searchData(id: String): Book = myRealm.where(
-        Book::class.java).equalTo("isbn",id).findFirst() ?: Book(
+        Book::class.java
+    ).equalTo("isbn", id).findFirst() ?: Book(
         "NOTFOUND"
     )
 
-    fun updateData(id: String,pageValue: String, thought: String) : Boolean{
-        var isSuccess:Boolean = false
-        myRealm.executeTransaction{
-            val result = myRealm.where(Book::class.java).equalTo("id",id).findFirst()
-            if(result != null){
+    fun updateData(id: String, pageValue: String, thought: String): Boolean {
+        var isSuccess: Boolean = false
+        myRealm.executeTransaction {
+            val result = myRealm.where(Book::class.java).equalTo("id", id).findFirst()
+            if (result != null) {
                 result.pages.add(
                     Page(
                         pageValue.toInt()
@@ -48,9 +49,9 @@ class LocalBookModel {
         return isSuccess
     }
 
-    fun registData(book: Book){
-        myRealm.executeTransaction{
-            val bookData = myRealm.createObject(Book::class.java,UUID.randomUUID().toString())
+    fun registData(book: Book, size: Int) {
+        myRealm.executeTransaction {
+            val bookData = myRealm.createObject(Book::class.java, size.toString())
             bookData.name = book.name
             bookData.isbn = book.isbn
             bookData.imageUrl = book.imageUrl
@@ -66,9 +67,18 @@ class LocalBookModel {
         }
     }
 
-    private fun getDate():String{
+    fun updateReadFlag(id: String) {
+        myRealm.executeTransaction {
+            val result = myRealm.where(Book::class.java).equalTo("id", id).findFirst()
+            if (result != null) {
+                result.alreadyRead = !result.alreadyRead
+            }
+        }
+    }
+
+    private fun getDate(): String {
         val date = Date()
-        val dataFormat = SimpleDateFormat("yyyy/MM/dd",Locale.getDefault())
+        val dataFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
         return dataFormat.format(date)
     }
 }

@@ -52,6 +52,13 @@
             app:argType="string"
             app:enterAnim="@anim/upmove"
             app:exitAnim="@anim/upmove"/>
+        <action
+            android:id="@+id/action_update_to_list"
+            app:destination="@id/listViewFragment"
+            app:enterAnim="@anim/upmove"
+            app:exitAnim="@anim/upmove"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
 

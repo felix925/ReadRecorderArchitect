@@ -30,7 +30,7 @@ class RemoteBookModel {
         return withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
             val resString = response.body!!.string()
-            val bookData = moshiAdapter.fromJson(resString) ?: throw Error("Book is not Found")
+            val bookData = moshiAdapter.fromJson(resString) ?: return@withContext Book("NOTFOUND")
             val bookName = bookData.items[0].volumeInfo.title
             val imageURL = bookData.items[0].volumeInfo.imageLinks.thumbnail
             val maxPage = bookData.items[0].volumeInfo.pageCount.toString()

@@ -23,7 +23,8 @@ class ListViewPresenter @Inject constructor(
     override fun start() {
         launch {
             mView?.showProgress()
-            mView?.showBooks(BookRepository.getAllData())
+            runCatching { BookRepository.getAllData() }
+                .onSuccess { mView?.showBooks(it) }
             mView?.deleteProgress()
         }
     }

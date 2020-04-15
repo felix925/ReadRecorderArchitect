@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.making.felix.readrecordermvparch.DI.App
-import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.databinding.BookDataFragmentBinding
@@ -32,15 +31,19 @@ class DataViewFragment : Fragment(), DataViewContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.book_data_fragment, container, false)
-        binding = BookDataFragmentBinding.inflate(layoutInflater)
+        binding = BookDataFragmentBinding.inflate(inflater, container, false)
         presenter.attachView(this)
-        return view
+        presenter.setUpChartAndList(args.BOOKID)
+        binding.fab.setOnClickListener {
+            FabAction()
+        }
+        return binding.root
     }
 
     override fun setUpChart(bookId: String, pageData: Pair<Array<Page>, Int>) {
         val chartAdapt = ChartAdapter()
-        binding.pagechart.data = chartAdapt.setUpChart(binding.pagechart, pageData.first, pageData.second)
+        binding.pagechart.data =
+            chartAdapt.setUpChart(binding.pagechart, pageData.first, pageData.second)
     }
 
     override fun setUpThought(bookId: String, logList: List<Logs>, pageList: List<Page>) {
@@ -50,6 +53,10 @@ class DataViewFragment : Fragment(), DataViewContract.View {
                 pressThought(logList[id.toInt()].logData, pageList[id.toInt()].pageData)
             }
         }
+    }
+
+    private fun FabAction() {
+        presenter.navigateTrigger(args.BOOKID)
     }
 
 

@@ -8,4 +8,7 @@
     <string name="regist">Regist!!</string>
     <string name="isbn_hint">isbn番号を入力してください！</string>
     <string name="accept_button_text">この本であってる！</string>
+    <string name="add_thoughtdata_text">データを追加！</string>
+    <string name="help_thought_text">今回読んだ範囲で学びや心に刺さった事を書いて学びを最大化しましょう</string>
+    <string name="help_page_text">現在どこまで読み終えたか、ページ数を入力してください</string>
 </resources>
