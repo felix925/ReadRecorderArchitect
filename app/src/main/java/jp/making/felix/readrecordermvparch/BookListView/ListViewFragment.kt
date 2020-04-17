@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import jp.making.felix.readrecordermvparch.DI.App
+import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookItem
 import jp.making.felix.readrecordermvparch.data.BookModel.Book
 import jp.making.felix.readrecordermvparch.databinding.BookListFragmentBinding
 import javax.inject.Inject
 
-class ListViewFragment : Fragment(), ListViewContract.View {
+class ListViewFragment : Fragment(R.layout.book_list_fragment), ListViewContract.View {
 
     @Inject
     lateinit var presenter: ListViewContract.Presenter
@@ -37,19 +38,11 @@ class ListViewFragment : Fragment(), ListViewContract.View {
         super.onAttach(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = BookListFragmentBinding.inflate(inflater, container, false)
-        presenter.attachView(this)
-        binding.BookList.setup()
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = BookListFragmentBinding.bind(view)
+        presenter.attachView(this)
+        binding.BookList.setup()
         presenter.start()
     }
 

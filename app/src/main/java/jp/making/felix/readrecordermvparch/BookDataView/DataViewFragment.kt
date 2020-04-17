@@ -10,12 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.making.felix.readrecordermvparch.DI.App
+import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.data.BookModel.Logs
 import jp.making.felix.readrecordermvparch.data.BookModel.Page
 import jp.making.felix.readrecordermvparch.databinding.BookDataFragmentBinding
 import javax.inject.Inject
 
-class DataViewFragment : Fragment(), DataViewContract.View {
+class DataViewFragment : Fragment(R.layout.book_data_fragment), DataViewContract.View {
     @Inject
     lateinit var presenter: DataViewContract.Presenter
     val args: DataViewFragmentArgs by navArgs()
@@ -26,18 +27,14 @@ class DataViewFragment : Fragment(), DataViewContract.View {
         super.onAttach(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = BookDataFragmentBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = BookDataFragmentBinding.bind(view)
         presenter.attachView(this)
         presenter.setUpChartAndList(args.BOOKID)
         binding.fab.setOnClickListener {
             FabAction()
         }
-        return binding.root
     }
 
     override fun setUpChart(bookId: String, pageData: Pair<Array<Page>, Int>) {

@@ -16,7 +16,7 @@ import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.databinding.BookUpdateFragmentBinding
 import javax.inject.Inject
 
-class DataUpdateFragment : Fragment(), DataUpdateContract.View {
+class DataUpdateFragment : Fragment(R.layout.book_update_fragment), DataUpdateContract.View {
     @Inject
     lateinit var presenter: DataUpdateContract.Presenter
     val args: DataViewFragmentArgs by navArgs()
@@ -27,13 +27,10 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View {
         super.onAttach(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        binding = BookUpdateFragmentBinding.inflate(inflater, container, false)
+        binding = BookUpdateFragmentBinding.bind(view)
         presenter.getMaxPage(args.BOOKID)
         binding.apply {
             button.setOnClickListener {
@@ -51,7 +48,6 @@ class DataUpdateFragment : Fragment(), DataUpdateContract.View {
                 }
             }
         }
-        return binding.root
     }
 
     override fun deleteProgress() {

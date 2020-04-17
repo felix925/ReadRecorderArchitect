@@ -10,10 +10,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.api.load
 import jp.making.felix.readrecordermvparch.DI.App
+import jp.making.felix.readrecordermvparch.R
 import jp.making.felix.readrecordermvparch.databinding.BookRegistFragmentBinding
 import javax.inject.Inject
 
-class DataRegistFragment : Fragment(), DataRegistContract.View {
+class DataRegistFragment : Fragment(R.layout.book_regist_fragment), DataRegistContract.View {
     @Inject
     lateinit var presenter: DataRegistContract.Presenter
     private lateinit var binding: BookRegistFragmentBinding
@@ -22,18 +23,14 @@ class DataRegistFragment : Fragment(), DataRegistContract.View {
         super.onAttach(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        binding = BookRegistFragmentBinding.inflate(inflater, container, false)
+        binding = BookRegistFragmentBinding.bind(view)
         binding.registButton.setOnClickListener {
             presenter.searchBook(binding.registEditText.text.toString())
             it.isActivated = false
         }
-        return binding.root
     }
 
     override fun deleteProgress() {
