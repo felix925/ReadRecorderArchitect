@@ -2,6 +2,7 @@ package jp.making.felix.readrecordermvparch.BookDataView
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,6 @@ class DataViewFragment : Fragment(R.layout.book_data_fragment), DataViewContract
     private fun FabAction() {
         presenter.navigateTrigger(args.BOOKID)
     }
-
 
     override fun navigationTrigger(id: String) {
         val action = DataViewFragmentDirections.actionDataToUpdate(id)

@@ -1,5 +1,6 @@
 package jp.making.felix.readrecordermvparch.BookDataUpdate
 
+import android.util.Log
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,10 +39,7 @@ class DataUpdatePresenter @Inject constructor(
 
     override fun getMaxPage(id: String) {
         launch {
-            var maxPage = 0
-            async {
-                maxPage = BookRepository.searchDataById(id).maxPage.toInt()
-            }.await()
+            val maxPage = BookRepository.searchDataById(id).maxPage.toInt()
             mView?.showMaxPage(maxPage)
         }
     }

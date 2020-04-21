@@ -15,7 +15,6 @@ class ListViewPresenter @Inject constructor(
 
     private var mView: ListViewContract.View? = null
     override val coroutineContext: CoroutineContext = Job() + Dispatchers.Main
-    private var page = 1
 
     override fun attachView(view: ListViewContract.View) {
         mView = view

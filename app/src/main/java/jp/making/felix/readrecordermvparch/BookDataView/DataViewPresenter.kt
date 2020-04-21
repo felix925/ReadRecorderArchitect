@@ -28,7 +28,7 @@ class DataViewPresenter @Inject constructor(
     override fun navigateTrigger(id: String) {
         launch {
             runCatching {
-                BookRepository.searchDataById(id)
+                BookRepository.searchDataByName(id)
             }
                 .onSuccess { mView?.navigationTrigger(it.id) }
                 .onFailure { }
