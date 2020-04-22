@@ -67,7 +67,6 @@ class DataUpdateFragment : Fragment(R.layout.book_update_fragment), DataUpdateCo
     }
 
     override fun showMaxPage(maxPage: Int) {
-        Log.d("maxPage",maxPage.toString())
-        binding.pagePleaseText.text = binding.pagePleaseText.text.toString() + "\n最大ページ(${maxPage})"
+        binding.pagePleaseText.text = """${binding.pagePleaseText.text}最大ページ(${maxPage})"""
     }
 }

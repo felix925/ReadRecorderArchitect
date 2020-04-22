@@ -1,10 +1,8 @@
 package jp.making.felix.readrecordermvparch.BookDataUpdate
 
-import android.util.Log
 import jp.making.felix.readrecordermvparch.data.Repository.BaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -31,7 +29,12 @@ class DataUpdatePresenter @Inject constructor(
                             BookRepository.updateReadFlag(it.id)
                         }
                     } else {
-                        mView?.showToast("前のページ数より大きなページ数を入力してください")
+                        if(it.maxPage.toInt() == it.pages.last()!!.pageData){
+                            mView?.showToast("読破済み！！！！")
+                        }
+                        else{
+                            mView?.showToast("前のページ数より大きなページ数を入力してください")
+                        }
                     }
                 }
         }
